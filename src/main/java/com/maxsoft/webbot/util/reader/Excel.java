@@ -113,11 +113,9 @@ public class Excel {
         String value = "";
         try {
             FileInputStream excelFile = new FileInputStream(new File(excelFilePath));
-            System.out.println(baseObj.getLocatorFilePath());
             Workbook workbook = new XSSFWorkbook(excelFile);
             Sheet workSheet = workbook.getSheetAt(workbook.getSheetIndex(sheetName));
             value = workSheet.getRow(row).getCell(column).getStringCellValue();
-            System.out.println(value);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

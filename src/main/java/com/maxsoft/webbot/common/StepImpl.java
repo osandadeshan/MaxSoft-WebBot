@@ -9,8 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import java.io.IOException;
 import java.util.List;
-
-import static com.maxsoft.webbot.common.SeleniumWrapper.TEST_DATA_FILE_PATH;
+import static com.maxsoft.webbot.common.Base.TEST_DATA_FILE_PATH;
 
 /**
  * Project Name : MaxSoft WebBot
@@ -27,7 +26,7 @@ public class StepImpl {
     private WebDriver driver = Driver.driver;
     private Base baseObj = PageFactory.initElements(driver, Base.class);
 
-    @Step("Sleep <seconds> seconds")
+    @Step("Sleep <seconds> Seconds")
     public void sleep (int seconds) {
         baseObj.sleep(seconds);
     }
@@ -39,34 +38,52 @@ public class StepImpl {
         Excel.getDataInRightSideCell(TEST_DATA_FILE_PATH, "Test Data", "Purchase Token");
     }
 
-    @Step("Validate the elements' visibility on the screen <table>")
+    @Step("Validate Element's Visibility On The Page <table>")
     public void isElementVisible(Table table) throws IOException {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
             if (row.getCell(columnNames.get(3)).toLowerCase().equals("y") || row.getCell(columnNames.get(3)).toLowerCase().equals("yes")) {
-                baseObj.isElementVisible(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)));
+                baseObj.verifyElementVisible(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)));
             } else {
-                baseObj.isElementNotVisible(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)));
+                baseObj.verifyElementNotVisible(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)));
             }
         }
     }
 
-    @Step("Click element <table>")
+    @Step("Wait Until Element Visible On The Page <table>")
+    public void waitUntilElementVisible(Table table) throws IOException {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+        for (TableRow row : rows) {
+            baseObj.waitUntilElementIsVisible(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)));
+        }
+    }
+
+    @Step("Click Element <table>")
     public void clickElement(Table table) throws IOException {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
-            baseObj.clickElement(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)));
+            baseObj.click(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)));
         }
     }
 
-    @Step("Input text <table>")
+    @Step("Input Text <table>")
     public void inputText(Table table) throws IOException {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
             baseObj.inputText(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)));
+        }
+    }
+
+    @Step("Press Key <table>")
+    public void pressKey(Table table) throws IOException {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+        for (TableRow row : rows) {
+            baseObj.pressKeyBoardKey(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)));
         }
     }
 

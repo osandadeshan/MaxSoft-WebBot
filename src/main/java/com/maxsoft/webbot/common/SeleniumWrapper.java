@@ -6,7 +6,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
+import java.util.concurrent.TimeUnit;
+import com.google.common.base.Function;
 
 /**
  * Project Name : MaxSoft WebBot
@@ -20,12 +21,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class SeleniumWrapper {
 
-    public static final String APPLICATION_ENDPOINT = System.getenv("application_endpoint");
-    public static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
     public static final long TIMEOUT = Long.parseLong(System.getenv("timeout"));
-    public static final String TEST_DATA_FILE_PATH = System.getenv("test_data_excel_file_path");
-    public static final String LOCATORS_FILE_PATH = System.getenv("locators_file_path");
-    public WebElement webElement;
 
     WebDriver driver = Driver.driver;
 
@@ -33,74 +29,387 @@ public class SeleniumWrapper {
         PageFactory.initElements(driver, this);
     }
 
-    public void isElementVisible(WebElement element) {
-        Assert.assertTrue(element.isDisplayed());
-    }
-
-    public void isElementNotVisible(WebElement element) {
-        try {
-            Assert.assertFalse(element.isDisplayed());
-            Assert.fail("\"" + element + "\"" + " Element has found");
-        } catch (NoSuchElementException ex){
-            ex.printStackTrace();
+    protected void verifyElementIsVisible(String locatorStrategy, String webElementLocator) {
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                Assert.assertTrue("WebElement " + driver.findElement(By.id(webElementLocator)) + " is not visible"
+                        , driver.findElement(By.id(webElementLocator)).isDisplayed());
+                break;
+            case "xpath":
+                Assert.assertTrue("WebElement " + driver.findElement(By.xpath(webElementLocator)) + " is not visible"
+                        , driver.findElement(By.xpath(webElementLocator)).isDisplayed());
+                break;
+            case "class name":
+                Assert.assertTrue("WebElement " + driver.findElement(By.className(webElementLocator)) + " is not visible"
+                        , driver.findElement(By.className(webElementLocator)).isDisplayed());
+                break;
+            case "css selector":
+                Assert.assertTrue("WebElement " + driver.findElement(By.cssSelector(webElementLocator)) + " is not visible"
+                        , driver.findElement(By.cssSelector(webElementLocator)).isDisplayed());
+                break;
+            case "link text":
+                Assert.assertTrue("WebElement " + driver.findElement(By.linkText(webElementLocator)) + " is not visible"
+                        , driver.findElement(By.linkText(webElementLocator)).isDisplayed());
+                break;
+            case "partial link text":
+                Assert.assertTrue("WebElement " + driver.findElement(By.partialLinkText(webElementLocator)) + " is not visible"
+                        , driver.findElement(By.partialLinkText(webElementLocator)).isDisplayed());
+                break;
+            case "name":
+                Assert.assertTrue("WebElement " + driver.findElement(By.name(webElementLocator)) + " is not visible"
+                        , driver.findElement(By.name(webElementLocator)).isDisplayed());
+                break;
+            case "tag name":
+                Assert.assertTrue("WebElement " + driver.findElement(By.tagName(webElementLocator)) + " is not visible"
+                        , driver.findElement(By.tagName(webElementLocator)).isDisplayed());
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
         }
     }
 
-    protected void waitUntilElementClickable(WebElement element){
-        new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    protected void waitUntilElementEnabled(final WebElement element){
-        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
-        ExpectedCondition elementIsEnabled = new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver arg0) {
-                try {
-                    element.isEnabled();
-                    return true;
-                }
-                catch (NoSuchElementException e ) {
-                    return false;
-                }
-                catch (StaleElementReferenceException e) {
-                    return false;
-                }
+    protected void verifyElementIsNotVisible(String locatorStrategy, String webElementLocator) {
+        try {
+            switch (locatorStrategy.toLowerCase()) {
+                case "id":
+                    driver.findElement(By.id(webElementLocator)).isDisplayed();
+                    Assert.fail("WebElement " + driver.findElement(By.id(webElementLocator)) + " is visible");
+                    break;
+                case "xpath":
+                    driver.findElement(By.xpath(webElementLocator)).isDisplayed();
+                    Assert.fail("WebElement " + driver.findElement(By.xpath(webElementLocator)) + " is visible");
+                    break;
+                case "class name":
+                    driver.findElement(By.className(webElementLocator)).isDisplayed();
+                    Assert.fail("WebElement " + driver.findElement(By.className(webElementLocator)) + " is visible");
+                    break;
+                case "css selector":
+                    driver.findElement(By.cssSelector(webElementLocator)).isDisplayed();
+                    Assert.fail("WebElement " + driver.findElement(By.cssSelector(webElementLocator)) + " is visible");
+                    break;
+                case "link text":
+                    driver.findElement(By.linkText(webElementLocator)).isDisplayed();
+                    Assert.fail("WebElement " + driver.findElement(By.linkText(webElementLocator)) + " is visible");
+                    break;
+                case "partial link text":
+                    driver.findElement(By.partialLinkText(webElementLocator)).isDisplayed();
+                    Assert.fail("WebElement " + driver.findElement(By.partialLinkText(webElementLocator)) + " is visible");
+                    break;
+                case "name":
+                    driver.findElement(By.name(webElementLocator)).isDisplayed();
+                    Assert.fail("WebElement " + driver.findElement(By.name(webElementLocator)) + " is visible");
+                    break;
+                case "tag name":
+                    driver.findElement(By.tagName(webElementLocator)).isDisplayed();
+                    Assert.fail("WebElement " + driver.findElement(By.tagName(webElementLocator)) + " is visible");
+                    break;
+                default:
+                    Assert.fail("Locator strategy is not supported");
+                    break;
             }
-        };
-        wait.until(elementIsEnabled);
+        } catch (NoSuchElementException ex) {
+
+        }
     }
 
-    protected void waitUntilElementVisible(final WebElement element){
-        new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOf(element));
+    protected void waitUntilElementVisible(String locatorStrategy, String webElementLocator) {
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.id(webElementLocator)));
+                break;
+            case "xpath":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(webElementLocator)));
+                break;
+            case "class name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.className(webElementLocator)));
+                break;
+            case "css selector":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(webElementLocator)));
+                break;
+            case "link text":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.linkText(webElementLocator)));
+                break;
+            case "partial link text":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(webElementLocator)));
+                break;
+            case "name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.name(webElementLocator)));
+                break;
+            case "tag name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.tagName(webElementLocator)));
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    protected void waitUntilElementVisible(String xpathOfElement){
-        new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathOfElement)));
+    protected void waitUntilElementClickable(String locatorStrategy, String webElementLocator) {
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.id(webElementLocator)));
+                break;
+            case "xpath":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.xpath(webElementLocator)));
+                break;
+            case "class name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.className(webElementLocator)));
+                break;
+            case "css selector":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.cssSelector(webElementLocator)));
+                break;
+            case "link text":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.linkText(webElementLocator)));
+                break;
+            case "partial link text":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.partialLinkText(webElementLocator)));
+                break;
+            case "name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.name(webElementLocator)));
+                break;
+            case "tag name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.tagName(webElementLocator)));
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    protected void waitUntilElementInvisible(final WebElement element){
+    protected void waitUntilElementEnabled(String locatorStrategy, final String webElementLocator) {
         WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
-        ExpectedCondition elementIsDisplayed = new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver arg0) {
-                try {
-                    element.isDisplayed();
-                    return false;
-                }
-                catch (NoSuchElementException e ) {
-                    return true;
-                }
-                catch (StaleElementReferenceException f) {
-                    return true;
-                }
-            }
-        };
-        wait.until(elementIsDisplayed);
+        ExpectedCondition elementIsEnabled;
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                elementIsEnabled = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver arg0) {
+                        try {
+                            driver.findElement(By.id(webElementLocator)).isEnabled();
+                            return true;
+                        }
+                        catch (NoSuchElementException e ) {
+                            return false;
+                        }
+                        catch (StaleElementReferenceException e) {
+                            return false;
+                        }
+                    }
+                };
+                wait.until(elementIsEnabled);
+                break;
+            case "xpath":
+                elementIsEnabled = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver arg0) {
+                        try {
+                            driver.findElement(By.xpath(webElementLocator)).isEnabled();
+                            return true;
+                        } catch (NoSuchElementException e) {
+                            return false;
+                        } catch (StaleElementReferenceException e) {
+                            return false;
+                        }
+                    }
+                };
+                wait.until(elementIsEnabled);
+                break;
+            case "class name":
+                elementIsEnabled = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver arg0) {
+                        try {
+                            driver.findElement(By.className(webElementLocator)).isEnabled();
+                            return true;
+                        } catch (NoSuchElementException e) {
+                            return false;
+                        } catch (StaleElementReferenceException e) {
+                            return false;
+                        }
+                    }
+                };
+                wait.until(elementIsEnabled);
+                break;
+            case "css selector":
+                elementIsEnabled = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver arg0) {
+                        try {
+                            driver.findElement(By.cssSelector(webElementLocator)).isEnabled();
+                            return true;
+                        } catch (NoSuchElementException e) {
+                            return false;
+                        } catch (StaleElementReferenceException e) {
+                            return false;
+                        }
+                    }
+                };
+                wait.until(elementIsEnabled);
+                break;
+            case "link text":
+                elementIsEnabled = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver arg0) {
+                        try {
+                            driver.findElement(By.linkText(webElementLocator)).isEnabled();
+                            return true;
+                        } catch (NoSuchElementException e) {
+                            return false;
+                        } catch (StaleElementReferenceException e) {
+                            return false;
+                        }
+                    }
+                };
+                wait.until(elementIsEnabled);
+                break;
+            case "partial link text":
+                elementIsEnabled = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver arg0) {
+                        try {
+                            driver.findElement(By.partialLinkText(webElementLocator)).isEnabled();
+                            return true;
+                        } catch (NoSuchElementException e) {
+                            return false;
+                        } catch (StaleElementReferenceException e) {
+                            return false;
+                        }
+                    }
+                };
+                wait.until(elementIsEnabled);
+                break;
+            case "name":
+                elementIsEnabled = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver arg0) {
+                        try {
+                            driver.findElement(By.name(webElementLocator)).isEnabled();
+                            return true;
+                        } catch (NoSuchElementException e) {
+                            return false;
+                        } catch (StaleElementReferenceException e) {
+                            return false;
+                        }
+                    }
+                };
+                wait.until(elementIsEnabled);
+                break;
+            case "tag name":
+                elementIsEnabled = new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver arg0) {
+                        try {
+                            driver.findElement(By.tagName(webElementLocator)).isEnabled();
+                            return true;
+                        } catch (NoSuchElementException e) {
+                            return false;
+                        } catch (StaleElementReferenceException e) {
+                            return false;
+                        }
+                    }
+                };
+                wait.until(elementIsEnabled);
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    public void waitUntilElementRedrawed(WebElement element){
-        new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(element)));
+    protected void waitUntilElementNotVisible(String locatorStrategy, String webElementLocator) {
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.id(webElementLocator)));
+                break;
+            case "xpath":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(webElementLocator)));
+                break;
+            case "class name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.className(webElementLocator)));
+                break;
+            case "css selector":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(webElementLocator)));
+                break;
+            case "link text":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.linkText(webElementLocator)));
+                break;
+            case "partial link text":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.partialLinkText(webElementLocator)));
+                break;
+            case "name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.name(webElementLocator)));
+                break;
+            case "tag name":
+                new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.tagName(webElementLocator)));
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    public void waitUntilPageLoaded() {
+    protected void fluentWaitExceptionNotOccurring(String locatorStrategy, final String webElementLocator, int pollingDuration) {
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+                .withTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .pollingEvery(pollingDuration, TimeUnit.SECONDS)
+                .ignoring(Exception.class);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                wait.until(new Function<WebDriver, WebElement>() {
+                    public WebElement apply(WebDriver driver) {
+                        return driver.findElement(By.id(webElementLocator));
+                    }
+                });
+                break;
+            case "xpath":
+                wait.until(new Function<WebDriver, WebElement>() {
+                    public WebElement apply(WebDriver driver) {
+                        return driver.findElement(By.xpath(webElementLocator));
+                    }
+                });
+                break;
+            case "class name":
+                wait.until(new Function<WebDriver, WebElement>() {
+                    public WebElement apply(WebDriver driver) {
+                        return driver.findElement(By.className(webElementLocator));
+                    }
+                });
+                break;
+            case "css selector":
+                wait.until(new Function<WebDriver, WebElement>() {
+                    public WebElement apply(WebDriver driver) {
+                        return driver.findElement(By.cssSelector(webElementLocator));
+                    }
+                });
+                break;
+            case "link text":
+                wait.until(new Function<WebDriver, WebElement>() {
+                    public WebElement apply(WebDriver driver) {
+                        return driver.findElement(By.linkText(webElementLocator));
+                    }
+                });
+                break;
+            case "partial link text":
+                wait.until(new Function<WebDriver, WebElement>() {
+                    public WebElement apply(WebDriver driver) {
+                        return driver.findElement(By.partialLinkText(webElementLocator));
+                    }
+                });
+                break;
+            case "name":
+                wait.until(new Function<WebDriver, WebElement>() {
+                    public WebElement apply(WebDriver driver) {
+                        return driver.findElement(By.name(webElementLocator));
+                    }
+                });
+                break;
+            case "tag name":
+                wait.until(new Function<WebDriver, WebElement>() {
+                    public WebElement apply(WebDriver driver) {
+                        return driver.findElement(By.tagName(webElementLocator));
+                    }
+                });
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
+    }
+
+    protected void waitUntilPageLoaded() {
         ExpectedCondition<Boolean> expectation = new
                 ExpectedCondition<Boolean>() {
                     public Boolean apply(WebDriver driver) {
@@ -115,7 +424,7 @@ public class SeleniumWrapper {
         }
     }
 
-    public void scrollToElement(WebElement element){
+    protected void scrollToElement(String locatorStrategy, String webElementLocator) {
         /** Scroll to the element using Touch Actions
          Actions actions = new Actions(driver);
          actions.moveToElement(element);
@@ -123,73 +432,313 @@ public class SeleniumWrapper {
          waitUntilElementEnabled(element);
          **/
         // Scroll to the element using JavascriptExecutor
-        waitUntilElementVisible(element);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+        waitUntilElementVisible(locatorStrategy, webElementLocator);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.id(webElementLocator)));
+                break;
+            case "xpath":
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath(webElementLocator)));
+                break;
+            case "class name":
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.className(webElementLocator)));
+                break;
+            case "css selector":
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.cssSelector(webElementLocator)));
+                break;
+            case "link text":
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.linkText(webElementLocator)));
+                break;
+            case "partial link text":
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.partialLinkText(webElementLocator)));
+                break;
+            case "name":
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.name(webElementLocator)));
+                break;
+            case "tag name":
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.tagName(webElementLocator)));
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    public void scrollToElement(String xpathOfElement){
-        /** Scroll to the element using Touch Actions
-         Actions actions = new Actions(driver);
-         actions.moveToElement(element);
-         actions.perform();
-         waitUntilElementEnabled(element);
-         **/
-        // Scroll to the element using JavascriptExecutor
-        waitUntilElementVisible(xpathOfElement);
-        WebElement element = driver.findElement(By.xpath(xpathOfElement));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+    protected void setText(String locatorStrategy, String webElementLocator, String text) {
+        waitUntilElementEnabled(locatorStrategy, webElementLocator);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                driver.findElement(By.id(webElementLocator)).sendKeys(text);
+                break;
+            case "xpath":
+                driver.findElement(By.xpath(webElementLocator)).sendKeys(text);
+                break;
+            case "class name":
+                driver.findElement(By.className(webElementLocator)).sendKeys(text);
+                break;
+            case "css selector":
+                driver.findElement(By.cssSelector(webElementLocator)).sendKeys(text);
+                break;
+            case "link text":
+                driver.findElement(By.linkText(webElementLocator)).sendKeys(text);
+                break;
+            case "partial link text":
+                driver.findElement(By.partialLinkText(webElementLocator)).sendKeys(text);
+                break;
+            case "name":
+                driver.findElement(By.name(webElementLocator)).sendKeys(text);
+                break;
+            case "tag name":
+                driver.findElement(By.tagName(webElementLocator)).sendKeys(text);
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    protected void setTextAs(WebElement element, String text){
-        waitUntilElementEnabled(element);
-        element.click();
-        element.sendKeys(text);
+    protected void clickElement(String locatorStrategy, String webElementLocator) {
+        waitUntilElementClickable(locatorStrategy, webElementLocator);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                driver.findElement(By.id(webElementLocator)).click();
+                break;
+            case "xpath":
+                driver.findElement(By.xpath(webElementLocator)).click();
+                break;
+            case "class name":
+                driver.findElement(By.className(webElementLocator)).click();
+                break;
+            case "css selector":
+                driver.findElement(By.cssSelector(webElementLocator)).click();
+                break;
+            case "link text":
+                driver.findElement(By.linkText(webElementLocator)).click();
+                break;
+            case "partial link text":
+                driver.findElement(By.partialLinkText(webElementLocator)).click();
+                break;
+            case "name":
+                driver.findElement(By.name(webElementLocator)).click();
+                break;
+            case "tag name":
+                driver.findElement(By.tagName(webElementLocator)).click();
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    protected void clickElement(WebElement element){
-        waitUntilElementClickable(element);
-        element.click();
+    protected void clickElementByXCoordinates(String locatorStrategy, String webElementLocator) {
+        waitUntilElementClickable(locatorStrategy, webElementLocator);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.id(webElementLocator)).getLocation().x + ")");
+                driver.findElement(By.id(webElementLocator)).click();
+                break;
+            case "xpath":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.xpath(webElementLocator)).getLocation().x + ")");
+                driver.findElement(By.xpath(webElementLocator)).click();
+                break;
+            case "class name":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.className(webElementLocator)).getLocation().x + ")");
+                driver.findElement(By.className(webElementLocator)).click();
+                break;
+            case "css selector":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.cssSelector(webElementLocator)).getLocation().x + ")");
+                driver.findElement(By.cssSelector(webElementLocator)).click();
+                break;
+            case "link text":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.linkText(webElementLocator)).getLocation().x + ")");
+                driver.findElement(By.linkText(webElementLocator)).click();
+                break;
+            case "partial link text":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.partialLinkText(webElementLocator)).getLocation().x + ")");
+                driver.findElement(By.partialLinkText(webElementLocator)).click();
+                break;
+            case "name":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.name(webElementLocator)).getLocation().x + ")");
+                driver.findElement(By.name(webElementLocator)).click();
+                break;
+            case "tag name":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.tagName(webElementLocator)).getLocation().x + ")");
+                driver.findElement(By.tagName(webElementLocator)).click();
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    protected void clickElementByXCoordinates(WebElement element){
-        waitUntilElementClickable(element);
-        ((JavascriptExecutor)driver).executeScript("window.scrollTo(0,"+element.getLocation().x+")");
-        element.click();
+    protected void clickElementByYCoordinates(String locatorStrategy, String webElementLocator) {
+        waitUntilElementClickable(locatorStrategy, webElementLocator);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.id(webElementLocator)).getLocation().y + ")");
+                driver.findElement(By.id(webElementLocator)).click();
+                break;
+            case "xpath":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.xpath(webElementLocator)).getLocation().y + ")");
+                driver.findElement(By.xpath(webElementLocator)).click();
+                break;
+            case "class name":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.className(webElementLocator)).getLocation().y + ")");
+                driver.findElement(By.className(webElementLocator)).click();
+                break;
+            case "css selector":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.cssSelector(webElementLocator)).getLocation().y + ")");
+                driver.findElement(By.cssSelector(webElementLocator)).click();
+                break;
+            case "link text":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.linkText(webElementLocator)).getLocation().y + ")");
+                driver.findElement(By.linkText(webElementLocator)).click();
+                break;
+            case "partial link text":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.partialLinkText(webElementLocator)).getLocation().y + ")");
+                driver.findElement(By.partialLinkText(webElementLocator)).click();
+                break;
+            case "name":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.name(webElementLocator)).getLocation().y + ")");
+                driver.findElement(By.name(webElementLocator)).click();
+                break;
+            case "tag name":
+                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.tagName(webElementLocator)).getLocation().y + ")");
+                driver.findElement(By.tagName(webElementLocator)).click();
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    protected void clickElementByYCoordinates(WebElement element){
-        waitUntilElementClickable(element);
-        ((JavascriptExecutor)driver).executeScript("window.scrollTo(0,"+element.getLocation().y+")");
-        element.click();
-    }
-
-    protected void clickElementByJavascriptExecutor(String xpath){
-        WebElement element = driver.findElement(By.xpath(xpath));
-        waitUntilElementClickable(element);
+    protected void clickElementByJavascriptExecutor(String locatorStrategy, String webElementLocator) {
+        waitUntilElementClickable(locatorStrategy, webElementLocator);
         JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("arguments[0].click();", element);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                js.executeScript("arguments[0].click();", driver.findElement(By.id(webElementLocator)));
+                break;
+            case "xpath":
+                js.executeScript("arguments[0].click();", driver.findElement(By.xpath(webElementLocator)));
+                break;
+            case "class name":
+                js.executeScript("arguments[0].click();", driver.findElement(By.className(webElementLocator)));
+                break;
+            case "css selector":
+                js.executeScript("arguments[0].click();", driver.findElement(By.cssSelector(webElementLocator)));
+                break;
+            case "link text":
+                js.executeScript("arguments[0].click();", driver.findElement(By.linkText(webElementLocator)));
+                break;
+            case "partial link text":
+                js.executeScript("arguments[0].click();", driver.findElement(By.partialLinkText(webElementLocator)));
+                break;
+            case "name":
+                js.executeScript("arguments[0].click();", driver.findElement(By.name(webElementLocator)));
+                break;
+            case "tag name":
+                js.executeScript("arguments[0].click();", driver.findElement(By.tagName(webElementLocator)));
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    protected void clickElementByJavascriptExecutor(WebElement element){
-        waitUntilElementClickable(element);
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        js.executeScript("arguments[0].click();", element);
+    protected void selectFromDropdown(String locatorStrategy, String webElementLocator, String visibleText) {
+        clickElementByJavascriptExecutor(locatorStrategy, webElementLocator);
+        Select dropdown;
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                dropdown = new Select(driver.findElement(By.id(webElementLocator)));
+                dropdown.selectByVisibleText(visibleText);
+                break;
+            case "xpath":
+                dropdown = new Select(driver.findElement(By.xpath(webElementLocator)));
+                dropdown.selectByVisibleText(visibleText);
+                break;
+            case "class name":
+                dropdown = new Select(driver.findElement(By.className(webElementLocator)));
+                dropdown.selectByVisibleText(visibleText);
+                break;
+            case "css selector":
+                dropdown = new Select(driver.findElement(By.cssSelector(webElementLocator)));
+                dropdown.selectByVisibleText(visibleText);
+                break;
+            case "link text":
+                dropdown = new Select(driver.findElement(By.linkText(webElementLocator)));
+                dropdown.selectByVisibleText(visibleText);
+                break;
+            case "partial link text":
+                dropdown = new Select(driver.findElement(By.partialLinkText(webElementLocator)));
+                dropdown.selectByVisibleText(visibleText);
+                break;
+            case "name":
+                dropdown = new Select(driver.findElement(By.name(webElementLocator)));
+                dropdown.selectByVisibleText(visibleText);
+                break;
+            case "tag name":
+                dropdown = new Select(driver.findElement(By.tagName(webElementLocator)));
+                dropdown.selectByVisibleText(visibleText);
+                break;
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
-    protected void clickLink(WebElement element){
-        waitUntilElementEnabled(element);
-        element.click();
+    protected String getText(String locatorStrategy, String webElementLocator) {
+        waitUntilElementVisible(locatorStrategy, webElementLocator);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                return driver.findElement(By.id(webElementLocator)).getText();
+            case "xpath":
+                return driver.findElement(By.xpath(webElementLocator)).getText();
+            case "class name":
+                return driver.findElement(By.className(webElementLocator)).getText();
+            case "css selector":
+                return driver.findElement(By.cssSelector(webElementLocator)).getText();
+            case "link text":
+                return driver.findElement(By.linkText(webElementLocator)).getText();
+            case "partial link text":
+                return driver.findElement(By.partialLinkText(webElementLocator)).getText();
+            case "name":
+                return driver.findElement(By.name(webElementLocator)).getText();
+            case "tag name":
+                return driver.findElement(By.tagName(webElementLocator)).getText();
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
+        return null;
     }
 
-    public void selectFromDropdown(WebElement dropDown, String visibleText) {
-        clickElementByJavascriptExecutor(dropDown);
-        Select dropdown = new Select(dropDown);
-        dropdown.selectByVisibleText(visibleText);
-    }
-
-    protected String getText(WebElement element){
-        waitUntilElementEnabled(element);
-        return element.getText();
+    protected void pressKey(String locatorStrategy, String webElementLocator, String asciiCode) {
+        //CharSequence cs = asciiCode;
+        //element.sendKeys(cs);
+        waitUntilElementVisible(locatorStrategy, webElementLocator);
+        switch (locatorStrategy.toLowerCase()) {
+            case "id":
+                driver.findElement(By.id(webElementLocator)).sendKeys("\ue007");
+            case "xpath":
+                driver.findElement(By.xpath(webElementLocator)).sendKeys("\ue007");
+            case "class name":
+                driver.findElement(By.className(webElementLocator)).sendKeys("\ue007");
+            case "css selector":
+                driver.findElement(By.cssSelector(webElementLocator)).sendKeys("\ue007");
+            case "link text":
+                driver.findElement(By.linkText(webElementLocator)).sendKeys("\ue007");
+            case "partial link text":
+                driver.findElement(By.partialLinkText(webElementLocator)).sendKeys("\ue007");
+            case "name":
+                driver.findElement(By.name(webElementLocator)).sendKeys("\ue007");
+            case "tag name":
+                driver.findElement(By.tagName(webElementLocator)).sendKeys("\ue007");
+            default :
+                Assert.fail("Locator strategy is not supported");
+                break;
+        }
     }
 
 

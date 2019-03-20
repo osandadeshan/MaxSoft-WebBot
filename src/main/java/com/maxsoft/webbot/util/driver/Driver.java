@@ -3,7 +3,7 @@ package com.maxsoft.webbot.util.driver;
 import com.thoughtworks.gauge.AfterSuite;
 import com.thoughtworks.gauge.BeforeSuite;
 import org.openqa.selenium.WebDriver;
-import static com.maxsoft.webbot.common.SeleniumWrapper.APPLICATION_ENDPOINT;
+import static com.maxsoft.webbot.common.Base.APPLICATION_ENDPOINT;
 
 /**
  * Project Name : MaxSoft WebBot

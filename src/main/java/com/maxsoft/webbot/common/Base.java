@@ -63,52 +63,63 @@ public class Base extends SeleniumWrapper {
         Gauge.writeMessage(text);
     }
 
-    protected void verifyElementVisible(String sheetName, String elementName) throws IOException {
+    protected void verifyElementIsVisible(String sheetName, String elementName) throws IOException {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        super.verifyElementIsVisible(locatorStrategy, webElementLocator);
+        super.verifyElementIsVisibleBy(locatorStrategy, webElementLocator);
     }
 
-    protected void verifyElementNotVisible(String sheetName, String elementName) throws IOException {
+    protected void verifyElementIsNotVisible(String sheetName, String elementName) throws IOException {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        verifyElementIsNotVisible(locatorStrategy, webElementLocator);
+        verifyElementIsNotVisibleBy(locatorStrategy, webElementLocator);
     }
 
-    protected void waitUntilElementIsVisible(String sheetName, String elementName) throws IOException {
+    protected void waitUntilElementVisible(String sheetName, String elementName) throws IOException {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        super.waitUntilElementVisible(locatorStrategy, webElementLocator);
+        super.waitUntilElementVisibleBy(locatorStrategy, webElementLocator);
     }
 
-    protected void waitUntilElementIsClickable(String sheetName, String elementName) throws IOException {
+    protected void waitUntilElementClickable(String sheetName, String elementName) throws IOException {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        super.waitUntilElementClickable(locatorStrategy, webElementLocator);
+        super.waitUntilElementClickableBy(locatorStrategy, webElementLocator);
     }
 
-    protected void waitUntilElementIsEnabled(String sheetName, String elementName) throws IOException {
+    protected void waitUntilElementEnabled(String sheetName, String elementName) throws IOException {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        super.waitUntilElementEnabled(locatorStrategy, webElementLocator);
+        super.waitUntilElementEnabledBy(locatorStrategy, webElementLocator);
+    }
+
+    protected void waitUntilElementNotVisible(String sheetName, String elementName) throws IOException {
+        String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
+        String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
+        super.waitUntilElementNotVisibleBy(locatorStrategy, webElementLocator);
+    }
+
+    protected void replaceWebElementLocatorPlaceholderAndSaveToDataStore(String sheetName, String elementName, String placeholderText, String replacementText,
+                                                                         String dataStoreType, String variableName) throws IOException {
+        saveToDataStore(dataStoreType, variableName, replaceWebElementLocatorPlaceholder(Excel.getWebElementLocator(sheetName, elementName), placeholderText, replacementText));
     }
 
     protected void click(String sheetName, String elementName) throws IOException {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        super.clickElement(locatorStrategy, webElementLocator);
+        super.clickElementBy(locatorStrategy, webElementLocator);
     }
 
     protected void inputText(String sheetName, String elementName, String text) throws IOException {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        super.setText(locatorStrategy, webElementLocator, text);
+        super.inputTextBy(locatorStrategy, webElementLocator, text);
     }
 
-    protected void pressKeyBoardKey(String sheetName, String elementName, String asciiCode) throws IOException {
+    protected void pressKey(String sheetName, String elementName, String asciiCode) throws IOException {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        super.pressKey(locatorStrategy, webElementLocator, asciiCode);
+        super.pressKeyBy(locatorStrategy, webElementLocator, asciiCode);
     }
 
     protected String getScenarioDataStoreValue(String variableNameOfValueStoredInDataStore) {

@@ -75,7 +75,7 @@ public class Excel {
         return 0;
     }
 
-    public static String getDataInRightSideCell(String excelFilePath, String sheetName, String cellContent) {
+    public static String getCellContentInRightSideCell(String excelFilePath, String sheetName, String cellContent) {
         String cellValue = "";
         int colNum = 1;
         try {
@@ -83,8 +83,8 @@ public class Excel {
             Workbook workbook = new XSSFWorkbook(excelFile);
             Sheet workSheet = workbook.getSheet(sheetName);
             cellValue = workSheet.getRow(Excel.getRowNumberByCellContent(excelFilePath, sheetName, cellContent)).getCell(colNum).getStringCellValue();
-            System.out.println("Key: [" + cellContent + "] " + getSpaces(cellContent.length()) + " Value: [" + cellValue + "]");
-            Gauge.writeMessage("<pre>Key: [" + cellContent + "] " + getSpaces(cellContent.length()) + " Value: [" + cellValue + "]</pre>");
+//            System.out.println("Key: [" + cellContent + "] " + getSpaces(cellContent.length()) + " Value: [" + cellValue + "]");
+//            Gauge.writeMessage("<pre>Key: [" + cellContent + "] " + getSpaces(cellContent.length()) + " Value: [" + cellValue + "]</pre>");
             return cellValue;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -109,7 +109,7 @@ public class Excel {
         return spaces;
     }
 
-    public static String getDataByRowAndColumn(String excelFilePath, String sheetName, int row, int column) {
+    public static String getCellContentByRowAndColumn(String excelFilePath, String sheetName, int row, int column) {
         String value = "";
         try {
             FileInputStream excelFile = new FileInputStream(new File(excelFilePath));
@@ -128,21 +128,21 @@ public class Excel {
         int row, column;
         row = getRowNumberByCellContent(locatorFilePath, sheetName, elementName);
         column = getColumnNumberByCellContent(locatorFilePath, sheetName, elementName);
-        return getDataByRowAndColumn(locatorFilePath, sheetName, row, column);
+        return getCellContentByRowAndColumn(locatorFilePath, sheetName, row, column);
     }
 
     public static String getLocatorStrategy(String sheetName, String elementName) throws IOException {
         int row, column;
         row = getRowNumberByCellContent(locatorFilePath, sheetName, elementName);
         column = getColumnNumberByCellContent(locatorFilePath, sheetName, elementName) + 1;
-        return getDataByRowAndColumn(locatorFilePath, sheetName, row, column);
+        return getCellContentByRowAndColumn(locatorFilePath, sheetName, row, column);
     }
 
     public static String getWebElementLocator(String sheetName, String elementName) throws IOException {
         int row, column;
         row = getRowNumberByCellContent(locatorFilePath, sheetName, elementName);
         column = getColumnNumberByCellContent(locatorFilePath, sheetName, elementName) + 2;
-        return getDataByRowAndColumn(locatorFilePath, sheetName, row, column);
+        return getCellContentByRowAndColumn(locatorFilePath, sheetName, row, column);
     }
 
 

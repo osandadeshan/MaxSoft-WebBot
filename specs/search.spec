@@ -126,11 +126,6 @@ Description     : This is an executable specification file which covers the logi
    |--------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Tap on Search button|yes                                      |HomePage          |btn_search          |                               |                              |                                       |
 
-* Validate Element's Visibility On The Page
-   |Step Name                             |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Is Visible?|
-   |--------------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|-----------|
-   |Ask question button should be visible |yes                                      |HomePage          |btn_ask_question    |                               |                              |                                       |y          |
-
 * Wait Until Element Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|

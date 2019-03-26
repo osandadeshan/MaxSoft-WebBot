@@ -9,9 +9,11 @@ package com.maxsoft.webbot.util.email;
  * Description  :
  **/
 
+import com.maxsoft.webbot.util.chart.BarChart;
+import com.maxsoft.webbot.util.chart.PieChart;
+import com.maxsoft.webbot.util.testresults.JsonReportReader;
 import org.json.simple.parser.ParseException;
 import org.junit.Assert;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

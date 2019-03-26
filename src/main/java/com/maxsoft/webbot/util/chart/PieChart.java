@@ -1,4 +1,4 @@
-package com.maxsoft.webbot.util.email;
+package com.maxsoft.webbot.util.chart;
 
 /**
  * Project Name : MaxSoft-WebBot

@@ -1,7 +1,7 @@
 package com.maxsoft.webbot;
 
 import com.maxsoft.webbot.util.email.Email;
-import com.maxsoft.webbot.util.email.JsonReportReader;
+import com.maxsoft.webbot.util.testresults.JsonReportReader;
 
 /**
  * Project Name : MaxSoft-WebBot

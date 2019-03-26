@@ -11,7 +11,7 @@ package com.maxsoft.webbot.util.email;
 
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
-import static com.maxsoft.webbot.util.email.JsonReportReader.*;
+import static com.maxsoft.webbot.util.testresults.JsonReportReader.*;
 
 
 public class EmailTemplate {

@@ -1,4 +1,4 @@
-package com.maxsoft.webbot.util.email;
+package com.maxsoft.webbot.util.testresults;
 
 /**
  * Project Name : MaxSoft-WebBot
@@ -11,6 +11,7 @@ package com.maxsoft.webbot.util.email;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
+import com.maxsoft.webbot.util.email.EmailTemplate;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

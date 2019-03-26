@@ -1,4 +1,4 @@
-package com.maxsoft.webbot.util.email;
+package com.maxsoft.webbot.util.chart;
 
 /**
  * Project Name : MaxSoft-WebBot
@@ -32,7 +32,7 @@ import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.TextAnchor;
 import org.json.simple.parser.ParseException;
-import static com.maxsoft.webbot.util.email.JsonReportReader.*;
+import static com.maxsoft.webbot.util.testresults.JsonReportReader.*;
 
 
 public class BarChart {

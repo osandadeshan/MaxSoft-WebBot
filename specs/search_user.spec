@@ -19,9 +19,9 @@ Description     : This is an executable specification file which covers the logi
    |Tap on Users Menu Item|yes                                      |HomePage          |nav_bar_users_menu  |                               |                              |                                       |
 
 * Validate Element's Visibility On The Page
-   |Step Name                             |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Is Visible?|
-   |--------------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|-----------|
-   |Ask question button should be visible |yes                                      |HomePage          |btn_ask_question    |                               |                              |                                       |n          |
+   |Step Name                                 |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Is Visible?|
+   |------------------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|-----------|
+   |Ask question button should not be visible |yes                                      |HomePage          |btn_ask_question    |                               |                              |                                       |n          |
 
 * Input Text
    |Step Name         |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Does Input Text Retrieve From Data Store?|If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Text      |

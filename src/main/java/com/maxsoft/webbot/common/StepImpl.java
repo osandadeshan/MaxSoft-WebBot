@@ -69,8 +69,13 @@ public class StepImpl {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
-            baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)),
-                    row.getCell(columnNames.get(4)), row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6)));
+            if (row.getCell(columnNames.get(4)).toLowerCase().equals("y") || row.getCell(columnNames.get(4)).toLowerCase().equals("yes")) {
+                baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)),
+                        baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))), row.getCell(columnNames.get(8)), row.getCell(columnNames.get(9)));
+            } else {
+                baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)),
+                        row.getCell(columnNames.get(7)), row.getCell(columnNames.get(8)), row.getCell(columnNames.get(9)));
+            }
         }
     }
 

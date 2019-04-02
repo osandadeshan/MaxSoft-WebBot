@@ -64,7 +64,7 @@ public class SeleniumWrapper {
                         , driver.findElement(By.tagName(webElementLocator)).isDisplayed());
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -105,7 +105,7 @@ public class SeleniumWrapper {
                     Assert.fail("WebElement " + driver.findElement(By.tagName(webElementLocator)) + " is visible");
                     break;
                 default:
-                    Assert.fail("Locator strategy is not supported");
+                    Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                     break;
             }
         } catch (NoSuchElementException ex) {
@@ -140,7 +140,7 @@ public class SeleniumWrapper {
                 new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.tagName(webElementLocator)));
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -172,7 +172,7 @@ public class SeleniumWrapper {
                 new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.tagName(webElementLocator)));
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -304,7 +304,7 @@ public class SeleniumWrapper {
                 wait.until(elementIsEnabled);
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -336,7 +336,7 @@ public class SeleniumWrapper {
                 new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.tagName(webElementLocator)));
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -408,7 +408,7 @@ public class SeleniumWrapper {
                 });
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -463,7 +463,7 @@ public class SeleniumWrapper {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.tagName(webElementLocator)));
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -496,7 +496,7 @@ public class SeleniumWrapper {
                 driver.findElement(By.tagName(webElementLocator)).sendKeys(text);
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -529,7 +529,7 @@ public class SeleniumWrapper {
                 driver.findElement(By.tagName(webElementLocator)).click();
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -570,7 +570,7 @@ public class SeleniumWrapper {
                 driver.findElement(By.tagName(webElementLocator)).click();
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -611,7 +611,7 @@ public class SeleniumWrapper {
                 driver.findElement(By.tagName(webElementLocator)).click();
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -645,7 +645,7 @@ public class SeleniumWrapper {
                 js.executeScript("arguments[0].click();", driver.findElement(By.tagName(webElementLocator)));
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -687,7 +687,7 @@ public class SeleniumWrapper {
                 dropdown.selectByVisibleText(visibleText);
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }
@@ -712,7 +712,7 @@ public class SeleniumWrapper {
             case "tag name":
                 return driver.findElement(By.tagName(webElementLocator)).getText();
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
         return null;
@@ -748,7 +748,7 @@ public class SeleniumWrapper {
                 driver.findElement(By.tagName(webElementLocator)).sendKeys("\ue007");
                 break;
             default :
-                Assert.fail("Locator strategy is not supported");
+                Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
     }

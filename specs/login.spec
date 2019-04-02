@@ -11,6 +11,12 @@ Description     : This is an executable specification file
 
 
     
+## Valid user login to the application and profile name verification using test data excel file data
+
+* Login To The Application Using Username and Password In Test Data Excel File "LoginData" "osandaEmail" "osandaPassword" "profileName"
+
+
+
 ## Valid user login to the application and profile name verification using test data excel file
 
 * Click Element

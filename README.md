@@ -1,4 +1,4 @@
-# MaxSoft WebBot - Setup Guide.
+# MaxSoft WebBot - Setup Guide
 <br />
 
 ## Pre Requisites

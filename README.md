@@ -93,6 +93,7 @@ The main reason for developing this framework is to provide an easy way for Tech
 
 ## WebBot Development
 [Trello Board](https://trello.com/b/Aj0f2Gow/maxsoft-webbot)
+
 <br />
 
 ## How to build the MaxSoft IntelliAPI JAR file

@@ -1,4 +1,34 @@
-# MaxSoft WebBot - Setup Guide
+# MaxSoft WebBot
+<br />
+
+## Introduction
+The main reason for developing this framework is to provide an easy way for Technical QA, Developer or Non-technical QA to perform Web testing in an easy manner.
+
+### Technologies/Frameworks used
+- Java
+- Gauge Framework
+- Selenium
+- Bonigarcia WebDriver Manager
+- Junit
+- Apache POI
+- Apache Maven
+
+### Supported Platforms
+- Windows
+- Linux
+- Mac OS
+
+### Supported Languages
+- Java
+
+### Advantages
+- Generation of an executable document.
+- Human readable tests, business language and Mark-down syntax.
+- Tests can be designed even by a non- technical person.
+- Generate a HTML report with test details for every test execution.
+- Parallel execution.
+- Live execution report.
+- Automated emails for test execution summary with graphical representations.
 <br />
 
 ## Pre Requisites

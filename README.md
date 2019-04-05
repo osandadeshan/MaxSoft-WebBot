@@ -93,7 +93,15 @@ The main reason for developing this framework is to provide an easy way for Tech
 
 ## WebBot Development
 [Trello Board](https://trello.com/b/Aj0f2Gow/maxsoft-webbot)
+<br />
 
+## How to build the MaxSoft IntelliAPI JAR file
+1) Get a clone of this project.
+2) Open the command prompt. 
+3) Navigate to the project directory. \
+`cd <project_dir>`
+4) Execute this command. \
+`mvn clean install -DskipTests`
 <br />
 
 ## License

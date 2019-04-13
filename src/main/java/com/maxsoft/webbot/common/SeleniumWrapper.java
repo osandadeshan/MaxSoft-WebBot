@@ -722,7 +722,7 @@ public class SeleniumWrapper {
         waitUntilElementVisibleBy(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
-                driver.findElement(By.id(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.id(webElementLocator)).sendKeys(asciiCode);
                 break;
             case "xpath":
                 driver.findElement(By.xpath(webElementLocator)).sendKeys(asciiCode);

@@ -115,7 +115,7 @@ public class Base extends SeleniumWrapper {
         inputTextBy(locatorStrategy, webElementLocator, text);
     }
 
-    protected void pressKey(String sheetName, String elementName, String asciiCode) {
+    protected void pressKey(String sheetName, String elementName, CharSequence asciiCode) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         pressKeyBy(locatorStrategy, webElementLocator, asciiCode);

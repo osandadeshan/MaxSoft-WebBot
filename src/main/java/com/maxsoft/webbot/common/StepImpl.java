@@ -7,7 +7,6 @@ import com.thoughtworks.gauge.Table;
 import com.thoughtworks.gauge.TableRow;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import java.io.IOException;
 import java.util.List;
 import static com.maxsoft.webbot.common.Base.TEST_DATA_FILE_PATH;
 
@@ -34,7 +33,7 @@ public class StepImpl {
 
     // Use this method to save strings in data store
     @Step("Save the values inside data stores <table>")
-    public void saveValueToDataStore(Table table){
+    public void saveValueToDataStore(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
@@ -44,7 +43,7 @@ public class StepImpl {
 
     // Use this method to read strings from data store
     @Step("Read the values from data stores <table>")
-    public void readValueFromDataStore(Table table){
+    public void readValueFromDataStore(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
@@ -65,7 +64,7 @@ public class StepImpl {
 
     // Use this method to replace the locator placeholder in locators.xlsx file and save the locator in a data store
     @Step("Replace Element Locator Placeholder And Save To Data Store <table>")
-    public void replaceWebElementLocatorPlaceholderAndSaveToDataStore(Table table) throws IOException {
+    public void replaceWebElementLocatorPlaceholderAndSaveToDataStore(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
@@ -81,7 +80,7 @@ public class StepImpl {
 
     // Use this method to verify the element's visibility which is on the current view port
     @Step("Validate Element's Visibility On The Page <table>")
-    public void isElementVisible(Table table) throws IOException {
+    public void isElementVisible(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
@@ -103,7 +102,7 @@ public class StepImpl {
 
     // Use this method to wait until the element is visible on the current view port
     @Step("Wait Until Element Visible On The Page <table>")
-    public void waitUntilElementVisible(Table table) throws IOException {
+    public void waitUntilElementVisible(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
@@ -117,7 +116,7 @@ public class StepImpl {
 
     // Use this method to click the element on the current view port
     @Step("Click Element <table>")
-    public void clickElement(Table table) throws IOException {
+    public void clickElement(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
@@ -131,7 +130,7 @@ public class StepImpl {
 
     // Use this method to input text into a text box on the current view port
     @Step("Input Text <table>")
-    public void inputText(Table table) throws IOException {
+    public void inputText(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {
@@ -154,7 +153,7 @@ public class StepImpl {
 
     // Use this method to press a keyboard key on an element on the current view port
     @Step("Press Key <table>")
-    public void pressKey(Table table) throws IOException {
+    public void pressKey(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
         for (TableRow row : rows) {

@@ -9,14 +9,14 @@ Description     : This is an executable concept file
 
 
 
-# Login To The Application Using Username and Password In Test Data Excel File <sheetName> <usernameKey> <passwordKey> <profileNameKey>
+# Login To The Application Using Username By Referring The Key <usernameKey> and Password By Referring The Key <passwordKey>. Then Validate The Account Name By Referring The Key <profileNameKey> In The Test Data Excel File.
 
 * Save Test Data From Excel To Data Stores
    |Sheet Name |Key Name        |Data Store Type|Data Store Variable Name|
    |-----------|----------------|---------------|------------------------|
-   |<sheetName>|<usernameKey>   |scenario       |emailVal                |
-   |<sheetName>|<passwordKey>   |scenario       |passwordVal             |
-   |<sheetName>|<profileNameKey>|scenario       |profileNameVal          |
+   |LoginData  |<usernameKey>   |scenario       |emailVal                |
+   |LoginData  |<passwordKey>   |scenario       |passwordVal             |
+   |LoginData  |<profileNameKey>|scenario       |profileNameVal          |
 
 * Click Element
    |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
@@ -51,7 +51,3 @@ Description     : This is an executable concept file
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameVal                  |
 
-* Click Element
-   |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
-   |-----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Click on Sign out link |yes                                      |HomePage          |nav_bar_signout_link|                               |                              |                                       |

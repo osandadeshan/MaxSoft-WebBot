@@ -16,7 +16,12 @@ Description     : This is an executable concept file
    |-----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Click on Sign out link |yes                                      |HomePage          |nav_bar_signout_link|                               |                              |                                       |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Sign in link should be visible |yes                                      |HomePage          |nav_bar_signin_link |                               |                              |                                       |
+
+* Wait Until Element Is Not Visible On The Page
+   |Step Name                          |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
+   |-----------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
+   |Profile name should not be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |

@@ -25,6 +25,47 @@ public class StepImpl {
     private WebDriver driver = Driver.driver;
     private Base baseObj = PageFactory.initElements(driver, Base.class);
 
+    private String locatorRetrievingDataStoreType = "";
+    private String locatorRetrievingDataStoreVariableName = "";
+    private String valueRetrievingDataStoreType = "";
+    private String valueRetrievingDataStoreVariableName = "";
+    private String valueSavingDataStoreType = "";
+    private String valueSavingDataStoreVariableName = "";
+    private String valueToBeStored = "";
+    private String sheetName = "";
+    private String cellContent = "";
+    private String isReplacementTextFromDataStore = "";
+    private String elementName = "";
+    private String placeholderText = "";
+    private String replacementText = "";
+    private String isElementFromLocatorsFile = "";
+    private String locatorStrategy = "";
+    private String isVisible = "";
+    private String isInputTextFromDataStore = "";
+    private String inputText = "";
+
+    // Clear variable values
+    private void clearVariableValues() {
+        locatorRetrievingDataStoreType = "";
+        locatorRetrievingDataStoreVariableName = "";
+        valueRetrievingDataStoreType = "";
+        valueRetrievingDataStoreVariableName = "";
+        valueSavingDataStoreType = "";
+        valueSavingDataStoreVariableName = "";
+        valueToBeStored = "";
+        sheetName = "";
+        cellContent = "";
+        isReplacementTextFromDataStore = "";
+        elementName = "";
+        placeholderText = "";
+        replacementText = "";
+        isElementFromLocatorsFile = "";
+        locatorStrategy = "";
+        isVisible = "";
+        isInputTextFromDataStore = "";
+        inputText = "";
+    }
+
     // Use this method to keep idling the application for a given time in seconds
     @Step("Sleep <seconds> Seconds")
     public void sleep (int seconds) {
@@ -36,8 +77,16 @@ public class StepImpl {
     public void saveValueToDataStore(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            baseObj.saveToDataStore(row.getCell(columnNames.get(0)),row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)));
+
+            valueSavingDataStoreType = row.getCell(columnNames.get(0));
+            valueSavingDataStoreVariableName = row.getCell(columnNames.get(1));
+            valueToBeStored = row.getCell(columnNames.get(2));
+
+            baseObj.saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName, valueToBeStored);
+            clearVariableValues();
+
         }
     }
 
@@ -46,8 +95,15 @@ public class StepImpl {
     public void readValueFromDataStore(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            baseObj.readFromDataStore(row.getCell(columnNames.get(0)),row.getCell(columnNames.get(1)));
+
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(0));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(1));
+
+            baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName);
+            clearVariableValues();
+
         }
     }
 
@@ -56,9 +112,18 @@ public class StepImpl {
     public void saveFromExcelToDataStores(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            baseObj.saveToDataStore(row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)),
-                    Excel.getCellContentInRightSideCell(TEST_DATA_FILE_PATH, row.getCell(columnNames.get(0)), row.getCell(columnNames.get(1))));
+
+            valueSavingDataStoreType = row.getCell(columnNames.get(2));
+            valueSavingDataStoreVariableName = row.getCell(columnNames.get(3));
+            sheetName = row.getCell(columnNames.get(0));
+            cellContent = row.getCell(columnNames.get(1));
+
+            baseObj.saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName,
+                    Excel.getCellContentInRightSideCell(TEST_DATA_FILE_PATH, sheetName, cellContent));
+            clearVariableValues();
+
         }
     }
 
@@ -67,14 +132,28 @@ public class StepImpl {
     public void replaceWebElementLocatorPlaceholderAndSaveToDataStore(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            if (row.getCell(columnNames.get(4)).toLowerCase().equals("y") || row.getCell(columnNames.get(4)).toLowerCase().equals("yes")) {
-                baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)),
-                        baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))), row.getCell(columnNames.get(8)), row.getCell(columnNames.get(9)));
+            
+            sheetName = row.getCell(columnNames.get(1));
+            elementName = row.getCell(columnNames.get(2));
+            placeholderText = row.getCell(columnNames.get(3));
+            isReplacementTextFromDataStore = row.getCell(columnNames.get(4)).toLowerCase();
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+            replacementText = row.getCell(columnNames.get(7));
+            valueSavingDataStoreType = row.getCell(columnNames.get(8));
+            valueSavingDataStoreVariableName = row.getCell(columnNames.get(9));
+                    
+            if (baseObj.isVariableContainsTrue(isReplacementTextFromDataStore)) {
+                baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(sheetName, elementName, placeholderText,
+                        baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName), valueSavingDataStoreType, valueSavingDataStoreVariableName);
             } else {
-                baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(row.getCell(columnNames.get(1)), row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)),
-                        row.getCell(columnNames.get(7)), row.getCell(columnNames.get(8)), row.getCell(columnNames.get(9)));
+                baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(sheetName, elementName, placeholderText,
+                        replacementText, valueSavingDataStoreType, valueSavingDataStoreVariableName);
             }
+            clearVariableValues();
+
         }
     }
 
@@ -83,34 +162,82 @@ public class StepImpl {
     public void isElementVisible(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            if (row.getCell(columnNames.get(1)).toLowerCase().equals("y") || row.getCell(columnNames.get(1)).toLowerCase().equals("yes")) {
-                if (row.getCell(columnNames.get(7)).toLowerCase().equals("y") || row.getCell(columnNames.get(7)).toLowerCase().equals("yes")) {
-                    baseObj.verifyElementIsVisible(row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)));
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+            isVisible = row.getCell(columnNames.get(7));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                if (baseObj.isVariableContainsTrue(isVisible)) {
+                    baseObj.verifyElementIsVisible(sheetName, elementName);
                 } else {
-                    baseObj.verifyElementIsNotVisible(row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)));
+                    baseObj.verifyElementIsNotVisible(sheetName, elementName);
                 }
             } else {
-                if (row.getCell(columnNames.get(7)).toLowerCase().equals("y") || row.getCell(columnNames.get(7)).toLowerCase().equals("yes")) {
-                    baseObj.verifyElementIsVisibleBy(row.getCell(columnNames.get(4)), baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))));
+                if (baseObj.isVariableContainsTrue(isVisible)) {
+                    baseObj.verifyElementIsVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
                 } else {
-                    baseObj.verifyElementIsNotVisibleBy(row.getCell(columnNames.get(4)), baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))));
+                    baseObj.verifyElementIsNotVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
                 }
             }
+            clearVariableValues();
+
         }
     }
 
     // Use this method to wait until the element is visible on the current view port
-    @Step("Wait Until Element Visible On The Page <table>")
+    @Step("Wait Until Element Is Visible On The Page <table>")
     public void waitUntilElementVisible(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            if (row.getCell(columnNames.get(1)).toLowerCase().equals("y") || row.getCell(columnNames.get(1)).toLowerCase().equals("yes")) {
-                baseObj.waitUntilElementVisible(row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)));
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.waitUntilElementVisible(sheetName, elementName);
             } else {
-                    baseObj.waitUntilElementVisibleBy(row.getCell(columnNames.get(4)), baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))));
+                    baseObj.waitUntilElementVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to wait until the element is not visible on the current view port
+    @Step("Wait Until Element Is Not Visible On The Page <table>")
+    public void waitUntilElementNotVisible(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.waitUntilElementNotVisible(sheetName, elementName);
+            } else {
+                baseObj.waitUntilElementNotVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+            }
+            clearVariableValues();
+
         }
     }
 
@@ -119,12 +246,23 @@ public class StepImpl {
     public void clickElement(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            if (row.getCell(columnNames.get(1)).toLowerCase().equals("y") || row.getCell(columnNames.get(1)).toLowerCase().equals("yes")) {
-                baseObj.click(row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)));
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.click(sheetName, elementName);
             } else {
-                baseObj.clickElementBy(row.getCell(columnNames.get(4)), baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))));
+                baseObj.clickElementBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
+            clearVariableValues();
+
         }
     }
 
@@ -133,21 +271,36 @@ public class StepImpl {
     public void inputText(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            if (row.getCell(columnNames.get(1)).toLowerCase().equals("y") || row.getCell(columnNames.get(1)).toLowerCase().equals("yes")) {
-                if (row.getCell(columnNames.get(7)).toLowerCase().equals("y") || row.getCell(columnNames.get(7)).toLowerCase().equals("yes")) {
-                    baseObj.inputText(row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)), baseObj.readFromDataStore(row.getCell(columnNames.get(8)), row.getCell(columnNames.get(9))));
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+            isInputTextFromDataStore = row.getCell(columnNames.get(7));
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(8));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(9));
+            inputText = row.getCell(columnNames.get(10));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
+                    baseObj.inputText(sheetName, elementName, baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName));
                 } else {
-                    baseObj.inputText(row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)), row.getCell(columnNames.get(10)));
+                    baseObj.inputText(sheetName, elementName, inputText);
                 }
             } else {
-                if (row.getCell(columnNames.get(7)).toLowerCase().equals("y") || row.getCell(columnNames.get(7)).toLowerCase().equals("yes")) {
-                    baseObj.inputTextBy(row.getCell(columnNames.get(4)), baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))),
-                            baseObj.readFromDataStore(row.getCell(columnNames.get(8)), row.getCell(columnNames.get(9))));
+                if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
+                    baseObj.inputTextBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName),
+                            baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName));
                 } else {
-                    baseObj.inputTextBy(row.getCell(columnNames.get(4)), baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))), row.getCell(columnNames.get(10)));
+                    baseObj.inputTextBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), inputText);
                 }
             }
+            clearVariableValues();
+
         }
     }
 
@@ -156,12 +309,24 @@ public class StepImpl {
     public void pressKey(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
+
         for (TableRow row : rows) {
-            if (row.getCell(columnNames.get(1)).toLowerCase().equals("y") || row.getCell(columnNames.get(1)).toLowerCase().equals("yes")) {
-                baseObj.pressKey(row.getCell(columnNames.get(2)), row.getCell(columnNames.get(3)), row.getCell(columnNames.get(7)));
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+
+            CharSequence asciiCode = row.getCell(columnNames.get(7));
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.pressKey(sheetName, elementName, asciiCode);
             }else {
-                baseObj.pressKeyBy(row.getCell(columnNames.get(4)), baseObj.readFromDataStore(row.getCell(columnNames.get(5)), row.getCell(columnNames.get(6))), row.getCell(columnNames.get(7)));
+                baseObj.pressKeyBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), asciiCode);
             }
+            clearVariableValues();
+
         }
     }
 

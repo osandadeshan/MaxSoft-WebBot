@@ -33,12 +33,12 @@ Description     : This is an executable specification file which covers the logi
    |------------------------------------------------|----------|------------------|----------------|--------------------------------------------------------|---------------|------------------------|
    |Get search result locator and save to data store|HomePage  |test_search_result|searchText      |How to automate Android 6.0 Date picker to set any date?|scenario       |question_search_result  |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Search result should be visible|yes                                      |HomePage          |lbl_seach_result    |                               |                              |                                       |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Search result should be visible|no                                       |                  |                    |XPath                          |scenario                      |question_search_result                 |
@@ -87,7 +87,7 @@ Description     : This is an executable specification file which covers the logi
    |------------------------------------------------|----------|------------------|----------------|--------------------------------------------------------|---------------|------------------------|
    |Get search result locator and save to data store|HomePage  |test_search_result|searchText      |How to automate Android 6.0 Date picker to set any date?|scenario       |question_search_result  |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Search result should be visible|no                                       |                  |                    |XPath                          |scenario                      |question_search_result                 |
@@ -126,7 +126,7 @@ Description     : This is an executable specification file which covers the logi
    |--------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Tap on Search button|yes                                      |HomePage          |btn_search          |                               |                              |                                       |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Search result should be visible|yes                                      |HomePage          |lbl_seach_result    |                               |                              |                                       |
@@ -180,7 +180,7 @@ Description     : This is an executable specification file which covers the logi
    |------------------------------------------------|----------|------------------|----------------|--------------------------------------------------------|---------------|------------------------|
    |Get search result locator and save to data store|HomePage  |test_search_result|searchText      |How to automate Android 6.0 Date picker to set any date?|scenario       |question_search_result  |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Search result should be visible|no                                       |                  |                    |XPath                          |scenario                      |question_search_result                 |

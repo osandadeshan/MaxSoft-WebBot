@@ -28,7 +28,7 @@ Description     : This is an executable specification file which covers the logi
    |------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|-----------------------------------------|-----------------------|--------------------------------|-----------------|
    |Set search text as|yes                                      |UsersPage         |txt_box_user_search |                               |                              |                                       |no                                       |                       |                                |Osanda Deshan    |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Search result should be visible|yes                                      |UsersPage         |lbl_seach_result    |                               |                              |                                       |

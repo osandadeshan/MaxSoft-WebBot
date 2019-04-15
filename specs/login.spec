@@ -51,12 +51,12 @@ Description     : This is an executable specification file
 * Replace Element Locator Placeholder And Save To Data Store
    |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store |If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
    |-------------------------|----------|------------------|----------------|---------------------------------------------|-----------------------|--------------------------------|------------------------|-------------------------------------|----------------------------------------------|
-   |Get profile name locator |HomePage  |lbl_profile_name  |profileName     |yes                                          |scenario               |profileNameVal                  |                        |scenario                             |currentProfileNameVal                         |
+   |Get profile name locator |HomePage  |lbl_profile_name  |profileName     |yes                                          |scenario               |profileNameVal                  |                        |scenario                             |currentProfileNameLocator                     |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameVal                  |
+   |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
 
 * Click Element
    |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
@@ -98,14 +98,19 @@ Description     : This is an executable specification file
 * Replace Element Locator Placeholder And Save To Data Store
    |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store |If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
    |-------------------------|----------|------------------|----------------|---------------------------------------------|-----------------------|--------------------------------|------------------------|-------------------------------------|----------------------------------------------|
-   |Get profile name locator |HomePage  |lbl_profile_name  |profileName     |no                                           |                       |                                |Osanda Nimalarathna     |scenario                             |currentProfileNameVal                         |
+   |Get profile name locator |HomePage  |lbl_profile_name  |profileName     |no                                           |                       |                                |Osanda Nimalarathna     |scenario                             |currentProfileNameLocator                     |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameVal                  |
+   |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
 
 * Click Element
    |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Click on Sign out link |yes                                      |HomePage          |nav_bar_signout_link|                               |                              |                                       |
+
+* Wait Until Element Is Not Visible On The Page
+   |Step Name                          |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
+   |-----------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
+   |Profile name should not be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |

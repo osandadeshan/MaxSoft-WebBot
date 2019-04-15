@@ -30,4 +30,14 @@ Description     : This is an executable specification file
    |----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|--------------|
    |Press Enter           |yes                                      |HomePage          |txt_search_bar      |                               |                              |                                       |\ue007        |
 
+* Replace Element Locator Placeholder And Save To Data Store
+   |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store |If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
+   |-------------------------|----------|------------------|----------------|---------------------------------------------|-----------------------|--------------------------------|------------------------|-------------------------------------|----------------------------------------------|
+   |Get search result locator|HomePage  |lbl_search_result |searchText      |yes                                          |scenario               |searchVal                       |                        |scenario                             |searchResultLocator                           |
+
+* Wait Until Element Is Visible On The Page
+   |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
+   |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
+   |Search result should be visible|no                                       |                  |                    |XPath                          |scenario                      |searchResultLocator                    |
+
 * Logout From The Application

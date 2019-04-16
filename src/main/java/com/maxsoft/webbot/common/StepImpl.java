@@ -1,5 +1,6 @@
 package com.maxsoft.webbot.common;
 
+import com.maxsoft.webbot.util.ascii.StringToAsciiMapper;
 import com.maxsoft.webbot.util.driver.Driver;
 import com.maxsoft.webbot.util.reader.Excel;
 import com.thoughtworks.gauge.Step;
@@ -68,7 +69,7 @@ public class StepImpl {
 
     // Use this method to keep idling the application for a given time in seconds
     @Step("Sleep <seconds> Seconds")
-    public void sleep (int seconds) {
+    public void sleep(int seconds) {
         baseObj.sleep(seconds);
     }
 
@@ -134,7 +135,7 @@ public class StepImpl {
         List<String> columnNames = table.getColumnNames();
 
         for (TableRow row : rows) {
-            
+
             sheetName = row.getCell(columnNames.get(1));
             elementName = row.getCell(columnNames.get(2));
             placeholderText = row.getCell(columnNames.get(3));
@@ -144,7 +145,7 @@ public class StepImpl {
             replacementText = row.getCell(columnNames.get(7));
             valueSavingDataStoreType = row.getCell(columnNames.get(8));
             valueSavingDataStoreVariableName = row.getCell(columnNames.get(9));
-                    
+
             if (baseObj.isVariableContainsTrue(isReplacementTextFromDataStore)) {
                 baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(sheetName, elementName, placeholderText,
                         baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName), valueSavingDataStoreType, valueSavingDataStoreVariableName);
@@ -209,7 +210,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.waitUntilElementVisible(sheetName, elementName);
             } else {
-                    baseObj.waitUntilElementVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                baseObj.waitUntilElementVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
             clearVariableValues();
 
@@ -318,11 +319,11 @@ public class StepImpl {
             locatorStrategy = row.getCell(columnNames.get(4));
             locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
             locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+            CharSequence asciiCode = StringToAsciiMapper.convertToASCII(row.getCell(columnNames.get(7)).toLowerCase());
 
-            CharSequence asciiCode = row.getCell(columnNames.get(7));
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.pressKey(sheetName, elementName, asciiCode);
-            }else {
+            } else {
                 baseObj.pressKeyBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), asciiCode);
             }
             clearVariableValues();
@@ -330,5 +331,5 @@ public class StepImpl {
         }
     }
 
-
+    
 }

@@ -718,34 +718,32 @@ public class SeleniumWrapper {
         return null;
     }
 
-    protected void pressKeyBy(String locatorStrategy, String webElementLocator, String asciiCode) {
-        //CharSequence cs = asciiCode;
-        //element.sendKeys(cs);
+    protected void pressKeyBy(String locatorStrategy, String webElementLocator, CharSequence asciiCode) {
         waitUntilElementVisibleBy(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
-                driver.findElement(By.id(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.id(webElementLocator)).sendKeys(asciiCode);
                 break;
             case "xpath":
-                driver.findElement(By.xpath(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.xpath(webElementLocator)).sendKeys(asciiCode);
                 break;
             case "class name":
-                driver.findElement(By.className(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.className(webElementLocator)).sendKeys(asciiCode);
                 break;
             case "css selector":
-                driver.findElement(By.cssSelector(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.cssSelector(webElementLocator)).sendKeys(asciiCode);
                 break;
             case "link text":
-                driver.findElement(By.linkText(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.linkText(webElementLocator)).sendKeys(asciiCode);
                 break;
             case "partial link text":
-                driver.findElement(By.partialLinkText(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.partialLinkText(webElementLocator)).sendKeys(asciiCode);
                 break;
             case "name":
-                driver.findElement(By.name(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.name(webElementLocator)).sendKeys(asciiCode);
                 break;
             case "tag name":
-                driver.findElement(By.tagName(webElementLocator)).sendKeys("\ue007");
+                driver.findElement(By.tagName(webElementLocator)).sendKeys(asciiCode);
                 break;
             default :
                 Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");

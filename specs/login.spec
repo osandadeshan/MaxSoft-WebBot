@@ -10,10 +10,13 @@ Description     : This is an executable specification file
 </pre>
 
 
+Tags: login
+
+
     
 ## Valid user login to the application and profile name verification using test data excel file data
 
-* Login To The Application Using Username and Password In Test Data Excel File "LoginData" "osandaEmail" "osandaPassword" "profileName"
+* Login To The Application Using Username By Referring The Key "osandaEmail" and Password By Referring The Key "osandaPassword". Then Validate The Account Name By Referring The Key "osandaProfileName" In The Test Data Excel File.
 
 
 
@@ -43,24 +46,19 @@ Description     : This is an executable specification file
    |Click on Submit button |yes                                      |LoginPage         |btn_submit          |                               |                              |                                       |
 
 * Save Test Data From Excel To Data Stores
-   |Sheet Name|Key Name   |Data Store Type|Data Store Variable Name|
-   |----------|-----------|---------------|------------------------|
-   |LoginData |profileName|scenario       |profileNameVal          |
+   |Sheet Name|Key Name         |Data Store Type|Data Store Variable Name|
+   |----------|-----------------|---------------|------------------------|
+   |LoginData |osandaProfileName|scenario       |profileNameVal          |
 
 * Replace Element Locator Placeholder And Save To Data Store
    |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store |If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
    |-------------------------|----------|------------------|----------------|---------------------------------------------|-----------------------|--------------------------------|------------------------|-------------------------------------|----------------------------------------------|
-   |Get profile name locator |HomePage  |lbl_profile_name  |profileName     |yes                                          |scenario               |profileNameVal                  |                        |scenario                             |currentProfileNameVal                         |
+   |Get profile name locator |HomePage  |lbl_profile_name  |profileName     |yes                                          |scenario               |profileNameVal                  |                        |scenario                             |currentProfileNameLocator                     |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameVal                  |
-
-* Click Element
-   |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
-   |-----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Click on Sign out link |yes                                      |HomePage          |nav_bar_signout_link|                               |                              |                                       |
+   |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
 
 
 
@@ -90,22 +88,22 @@ Description     : This is an executable specification file
    |Click on Submit button |yes                                      |LoginPage         |btn_submit          |                               |                              |                                       |
 
 * Save Test Data From Excel To Data Stores
-   |Sheet Name|Key Name   |Data Store Type|Data Store Variable Name|
-   |----------|-----------|---------------|------------------------|
-   |LoginData |profileName|scenario       |profileNameVal          |
+   |Sheet Name|Key Name         |Data Store Type|Data Store Variable Name|
+   |----------|-----------------|---------------|------------------------|
+   |LoginData |osandaProfileName|scenario       |profileNameVal          |
 
 * Replace Element Locator Placeholder And Save To Data Store
    |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store |If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
    |-------------------------|----------|------------------|----------------|---------------------------------------------|-----------------------|--------------------------------|------------------------|-------------------------------------|----------------------------------------------|
-   |Get profile name locator |HomePage  |lbl_profile_name  |profileName     |no                                           |                       |                                |Osanda Nimalarathna     |scenario                             |currentProfileNameVal                         |
+   |Get profile name locator |HomePage  |lbl_profile_name  |profileName     |no                                           |                       |                                |Osanda Nimalarathna     |scenario                             |currentProfileNameLocator                     |
 
-* Wait Until Element Visible On The Page
+* Wait Until Element Is Visible On The Page
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameVal                  |
+   |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
 
-* Click Element
-   |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
-   |-----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Click on Sign out link |yes                                      |HomePage          |nav_bar_signout_link|                               |                              |                                       |
 
+
+_____________________________
+
+* Logout From The Application

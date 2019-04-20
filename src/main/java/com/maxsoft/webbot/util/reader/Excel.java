@@ -36,7 +36,7 @@ public class Excel {
 
     public static int getColumnNumberByCellContent(String excelFilePath, String sheetName, String cellContent) {
         try {
-            FileInputStream excelFile = excelFile = new FileInputStream(excelFilePath);
+            FileInputStream excelFile = new FileInputStream(excelFilePath);
             Workbook workbook = new XSSFWorkbook(excelFile);
             Sheet firstSheet = workbook.getSheetAt(workbook.getSheetIndex(sheetName));
             Iterator<Row> iterator = firstSheet.iterator();

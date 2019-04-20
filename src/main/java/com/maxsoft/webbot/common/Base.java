@@ -31,6 +31,21 @@ public class Base extends SeleniumWrapper {
         PageFactory.initElements(driver, this);
     }
 
+    public Boolean isVariableContainsTrue(String variable) {
+        switch (variable.toLowerCase()){
+            case "y":
+                return true;
+            case "yes":
+                return true;
+            case "t":
+                return true;
+            case "true":
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public String getLocatorFilePath() {
         return CURRENT_DIRECTORY + File.separator + LOCATORS_FILE_PATH;
     }
@@ -115,7 +130,7 @@ public class Base extends SeleniumWrapper {
         inputTextBy(locatorStrategy, webElementLocator, text);
     }
 
-    protected void pressKey(String sheetName, String elementName, String asciiCode) {
+    protected void pressKey(String sheetName, String elementName, CharSequence asciiCode) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         pressKeyBy(locatorStrategy, webElementLocator, asciiCode);

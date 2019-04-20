@@ -1,0 +1,32 @@
+<pre>
+Project Name    : MaxSoft-WebBot
+Developer       : Osanda Deshan
+Version         : 1.0.0
+Date            : 13/04/2019
+Time            : 13:29
+Description     : This is an executable concept file
+</pre>
+
+
+
+# Logout From The Application
+
+* Click Element
+   |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
+   |-----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
+   |Click on Sign out link |yes                                      |HomePage          |nav_bar_signout_link|                               |                              |                                       |
+
+* Wait Until Element Is Visible On The Page
+   |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
+   |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
+   |Sign in link should be visible |yes                                      |HomePage          |nav_bar_signin_link |                               |                              |                                       |
+
+* Wait Until Element Is Not Visible On The Page
+   |Step Name                          |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
+   |-----------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
+   |Profile name should not be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
+
+* Validate Element's Visibility On The Page
+   |Step Name                         |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Is Visible?|
+   |----------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|-----------|
+   |Profile name should not be visible|no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |n          |

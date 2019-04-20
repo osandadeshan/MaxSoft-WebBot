@@ -10,11 +10,13 @@ Description     : This is an executable specification file
 </pre>
 
 
+Tags: login
+
+
     
 ## Valid user login to the application and profile name verification using test data excel file data
 
 * Login To The Application Using Username By Referring The Key "osandaEmail" and Password By Referring The Key "osandaPassword". Then Validate The Account Name By Referring The Key "osandaProfileName" In The Test Data Excel File.
-* Logout From The Application
 
 
 
@@ -58,11 +60,6 @@ Description     : This is an executable specification file
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
 
-* Click Element
-   |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
-   |-----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Click on Sign out link |yes                                      |HomePage          |nav_bar_signout_link|                               |                              |                                       |
-
 
 
 ## Valid user login to the application and profile name verification using hard coded text
@@ -105,12 +102,8 @@ Description     : This is an executable specification file
    |-------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Profile name should be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
 
-* Click Element
-   |Step Name              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
-   |-----------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Click on Sign out link |yes                                      |HomePage          |nav_bar_signout_link|                               |                              |                                       |
 
-* Wait Until Element Is Not Visible On The Page
-   |Step Name                          |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
-   |-----------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
-   |Profile name should not be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
+
+_____________________________
+
+* Logout From The Application

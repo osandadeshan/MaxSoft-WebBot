@@ -25,3 +25,8 @@ Description     : This is an executable concept file
    |Step Name                          |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |-----------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Profile name should not be visible |no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |
+
+* Validate Element's Visibility On The Page
+   |Step Name                         |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Is Visible?|
+   |----------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|-----------|
+   |Profile name should not be visible|no                                       |                  |                    |XPath                          |scenario                      |currentProfileNameLocator              |n          |

@@ -116,10 +116,10 @@ public class StepImpl {
 
         for (TableRow row : rows) {
 
-            valueSavingDataStoreType = row.getCell(columnNames.get(2));
-            valueSavingDataStoreVariableName = row.getCell(columnNames.get(3));
             sheetName = row.getCell(columnNames.get(0));
             cellContent = row.getCell(columnNames.get(1));
+            valueSavingDataStoreType = row.getCell(columnNames.get(2));
+            valueSavingDataStoreVariableName = row.getCell(columnNames.get(3));
 
             baseObj.saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName,
                     Excel.getCellContentInRightSideCell(TEST_DATA_FILE_PATH, sheetName, cellContent));

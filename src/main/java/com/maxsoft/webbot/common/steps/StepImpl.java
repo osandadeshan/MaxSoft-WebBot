@@ -1,5 +1,6 @@
-package com.maxsoft.webbot.common;
+package com.maxsoft.webbot.common.steps;
 
+import com.maxsoft.webbot.common.Base;
 import com.maxsoft.webbot.util.ascii.StringToAsciiMapper;
 import com.maxsoft.webbot.util.driver.Driver;
 import com.maxsoft.webbot.util.reader.Excel;

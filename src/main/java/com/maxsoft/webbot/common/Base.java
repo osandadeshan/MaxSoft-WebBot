@@ -1,5 +1,6 @@
 package com.maxsoft.webbot.common;
 
+import com.maxsoft.webbot.common.wrapper.SeleniumWrapper;
 import com.maxsoft.webbot.util.reader.Excel;
 import com.thoughtworks.gauge.Gauge;
 import com.thoughtworks.gauge.datastore.DataStore;
@@ -24,7 +25,7 @@ public class Base extends SeleniumWrapper {
 
     public static final String APPLICATION_ENDPOINT = System.getenv("application_endpoint");
     private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
-    protected static final String TEST_DATA_FILE_PATH = System.getenv("test_data_excel_file_path");
+    public static final String TEST_DATA_FILE_PATH = System.getenv("test_data_excel_file_path");
     private static final String LOCATORS_FILE_PATH = System.getenv("locators_file_path");
 
     public Base() {
@@ -54,7 +55,7 @@ public class Base extends SeleniumWrapper {
         return CURRENT_DIRECTORY + File.separator + TEST_DATA_FILE_PATH;
     }
 
-    protected void sleep(int seconds) {
+    public void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
         } catch (InterruptedException e) {
@@ -62,81 +63,81 @@ public class Base extends SeleniumWrapper {
         }
     }
 
-    protected void implicitlyWait(int seconds) {
+    public void implicitlyWait(int seconds) {
         JavascriptExecutor js = (JavascriptExecutor)driver;
         js.executeAsyncScript("window.setTimeout(arguments[arguments.length - 1], "+seconds+"000);");
         //driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 
-    protected static String getCurrentEpochTime() {
+    public static String getCurrentEpochTime() {
         return String.valueOf(Calendar.getInstance().getTimeInMillis());
     }
 
-    protected void print(String text) {
+    public void print(String text) {
         System.out.println(text);
         Gauge.writeMessage(text);
     }
 
-    protected void verifyElementIsVisible(String sheetName, String elementName) {
+    public void verifyElementIsVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         verifyElementIsVisibleBy(locatorStrategy, webElementLocator);
     }
 
-    protected void verifyElementIsNotVisible(String sheetName, String elementName) {
+    public void verifyElementIsNotVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         verifyElementIsNotVisibleBy(locatorStrategy, webElementLocator);
     }
 
-    protected void waitUntilElementVisible(String sheetName, String elementName) {
+    public void waitUntilElementVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         waitUntilElementVisibleBy(locatorStrategy, webElementLocator);
     }
 
-    protected void waitUntilElementClickable(String sheetName, String elementName) {
+    public void waitUntilElementClickable(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         waitUntilElementClickableBy(locatorStrategy, webElementLocator);
     }
 
-    protected void waitUntilElementEnabled(String sheetName, String elementName) {
+    public void waitUntilElementEnabled(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         waitUntilElementEnabledBy(locatorStrategy, webElementLocator);
     }
 
-    protected void waitUntilElementNotVisible(String sheetName, String elementName) {
+    public void waitUntilElementNotVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         waitUntilElementNotVisibleBy(locatorStrategy, webElementLocator);
     }
 
-    protected void replaceWebElementLocatorPlaceholderAndSaveToDataStore(String sheetName, String elementName, String placeholderText, String replacementText,
+    public void replaceWebElementLocatorPlaceholderAndSaveToDataStore(String sheetName, String elementName, String placeholderText, String replacementText,
                                                                          String dataStoreType, String variableName) {
         saveToDataStore(dataStoreType, variableName, replaceWebElementLocatorPlaceholder(Excel.getWebElementLocator(sheetName, elementName), placeholderText, replacementText));
     }
 
-    protected void click(String sheetName, String elementName) {
+    public void click(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         clickElementBy(locatorStrategy, webElementLocator);
     }
 
-    protected void inputText(String sheetName, String elementName, String text) {
+    public void inputText(String sheetName, String elementName, String text) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         inputTextBy(locatorStrategy, webElementLocator, text);
     }
 
-    protected void pressKey(String sheetName, String elementName, CharSequence asciiCode) {
+    public void pressKey(String sheetName, String elementName, CharSequence asciiCode) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         pressKeyBy(locatorStrategy, webElementLocator, asciiCode);
     }
 
-    protected String getScenarioDataStoreValue(String variableNameOfValueStoredInDataStore) {
+    public String getScenarioDataStoreValue(String variableNameOfValueStoredInDataStore) {
         try {
             // Fetching Value from the Data Store
             DataStore scenarioStore = DataStoreFactory.getScenarioDataStore();
@@ -151,7 +152,7 @@ public class Base extends SeleniumWrapper {
         }
     }
 
-    protected String getSpecificationDataStoreValue(String variableNameOfValueStoredInDataStore) {
+    public String getSpecificationDataStoreValue(String variableNameOfValueStoredInDataStore) {
         try {
             // Fetching Value from the Data Store
             DataStore specDataStore = DataStoreFactory.getSpecDataStore();
@@ -166,7 +167,7 @@ public class Base extends SeleniumWrapper {
         }
     }
 
-    protected String getSuiteDataStoreValue(String variableNameOfValueStoredInDataStore) {
+    public String getSuiteDataStoreValue(String variableNameOfValueStoredInDataStore) {
         try {
             // Fetching Value from the Data Store
             DataStore suiteStore = DataStoreFactory.getSuiteDataStore();
@@ -181,7 +182,7 @@ public class Base extends SeleniumWrapper {
         }
     }
 
-    protected void saveToScenarioDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
+    public void saveToScenarioDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
         try {
             // Adding value to the Data Store
             DataStore scenarioStore = DataStoreFactory.getScenarioDataStore();
@@ -194,7 +195,7 @@ public class Base extends SeleniumWrapper {
         }
     }
 
-    protected void saveToSpecificationDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
+    public void saveToSpecificationDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
         try {
             // Adding value to the Data Store
             DataStore specDataStore = DataStoreFactory.getSpecDataStore();
@@ -207,7 +208,7 @@ public class Base extends SeleniumWrapper {
         }
     }
 
-    protected void saveToSuiteDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
+    public void saveToSuiteDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
         try {
             // Adding value to the Data Store
             DataStore suiteStore = DataStoreFactory.getSuiteDataStore();
@@ -220,7 +221,7 @@ public class Base extends SeleniumWrapper {
         }
     }
 
-    protected void saveToDataStore(String dataStoreType, String variableName, String valueToBeStored){
+    public void saveToDataStore(String dataStoreType, String variableName, String valueToBeStored){
         switch (dataStoreType.toLowerCase()){
             case "spec":
                 saveToSpecificationDataStore(variableName, valueToBeStored);
@@ -239,7 +240,7 @@ public class Base extends SeleniumWrapper {
         }
     }
 
-    protected String readFromDataStore(String dataStoreType, String variableName){
+    public String readFromDataStore(String dataStoreType, String variableName){
         String value = "";
         switch (dataStoreType.toLowerCase()){
             case "spec":

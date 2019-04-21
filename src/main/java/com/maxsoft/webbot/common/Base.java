@@ -1,12 +1,14 @@
 package com.maxsoft.webbot.common;
 
 import com.maxsoft.webbot.common.wrapper.SeleniumWrapper;
+import com.maxsoft.webbot.util.driver.Driver;
 import com.maxsoft.webbot.util.reader.Excel;
 import com.thoughtworks.gauge.Gauge;
 import com.thoughtworks.gauge.datastore.DataStore;
 import com.thoughtworks.gauge.datastore.DataStoreFactory;
 import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import java.io.File;
 import java.util.Calendar;
@@ -21,7 +23,11 @@ import java.util.Calendar;
  **/
 
 
-public class Base extends SeleniumWrapper {
+public class Base {
+
+    private WebDriver driver = Driver.driver;
+
+    private SeleniumWrapper seleniumWrapperObj = PageFactory.initElements(driver, SeleniumWrapper.class);
 
     public static final String APPLICATION_ENDPOINT = System.getenv("application_endpoint");
     private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
@@ -81,60 +87,60 @@ public class Base extends SeleniumWrapper {
     public void verifyElementIsVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        verifyElementIsVisibleBy(locatorStrategy, webElementLocator);
+        seleniumWrapperObj.verifyElementIsVisible(locatorStrategy, webElementLocator);
     }
 
     public void verifyElementIsNotVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        verifyElementIsNotVisibleBy(locatorStrategy, webElementLocator);
+        seleniumWrapperObj.verifyElementIsNotVisible(locatorStrategy, webElementLocator);
     }
 
     public void waitUntilElementVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        waitUntilElementVisibleBy(locatorStrategy, webElementLocator);
+        seleniumWrapperObj.waitUntilElementVisible(locatorStrategy, webElementLocator);
     }
 
     public void waitUntilElementClickable(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        waitUntilElementClickableBy(locatorStrategy, webElementLocator);
+        seleniumWrapperObj.waitUntilElementClickable(locatorStrategy, webElementLocator);
     }
 
     public void waitUntilElementEnabled(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        waitUntilElementEnabledBy(locatorStrategy, webElementLocator);
+        seleniumWrapperObj.waitUntilElementEnabled(locatorStrategy, webElementLocator);
     }
 
     public void waitUntilElementNotVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        waitUntilElementNotVisibleBy(locatorStrategy, webElementLocator);
+        seleniumWrapperObj.waitUntilElementNotVisible(locatorStrategy, webElementLocator);
     }
 
     public void replaceWebElementLocatorPlaceholderAndSaveToDataStore(String sheetName, String elementName, String placeholderText, String replacementText,
                                                                          String dataStoreType, String variableName) {
-        saveToDataStore(dataStoreType, variableName, replaceWebElementLocatorPlaceholder(Excel.getWebElementLocator(sheetName, elementName), placeholderText, replacementText));
+        saveToDataStore(dataStoreType, variableName, seleniumWrapperObj.replaceWebElementLocatorPlaceholder(Excel.getWebElementLocator(sheetName, elementName), placeholderText, replacementText));
     }
 
-    public void click(String sheetName, String elementName) {
+    public void clickElement(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        clickElementBy(locatorStrategy, webElementLocator);
+        seleniumWrapperObj.clickElement(locatorStrategy, webElementLocator);
     }
 
     public void inputText(String sheetName, String elementName, String text) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        inputTextBy(locatorStrategy, webElementLocator, text);
+        seleniumWrapperObj.inputText(locatorStrategy, webElementLocator, text);
     }
 
     public void pressKey(String sheetName, String elementName, CharSequence asciiCode) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
-        pressKeyBy(locatorStrategy, webElementLocator, asciiCode);
+        seleniumWrapperObj.pressKey(locatorStrategy, webElementLocator, asciiCode);
     }
 
     public String getScenarioDataStoreValue(String variableNameOfValueStoredInDataStore) {

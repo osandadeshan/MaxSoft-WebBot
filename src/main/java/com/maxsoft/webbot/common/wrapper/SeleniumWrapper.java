@@ -21,15 +21,15 @@ import com.google.common.base.Function;
 
 public class SeleniumWrapper {
 
-    private static final long TIMEOUT = Long.parseLong(System.getenv("timeout"));
+    private WebDriver driver = Driver.driver;
 
-    protected WebDriver driver = Driver.driver;
+    private static final long TIMEOUT = Long.parseLong(System.getenv("timeout"));
 
     public SeleniumWrapper() {
         PageFactory.initElements(driver, this);
     }
 
-    public void verifyElementIsVisibleBy(String locatorStrategy, String webElementLocator) {
+    public void verifyElementIsVisible(String locatorStrategy, String webElementLocator) {
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 Assert.assertTrue("WebElement " + driver.findElement(By.id(webElementLocator)) + " is not visible"
@@ -69,7 +69,7 @@ public class SeleniumWrapper {
         }
     }
 
-    public void verifyElementIsNotVisibleBy(String locatorStrategy, String webElementLocator) {
+    public void verifyElementIsNotVisible(String locatorStrategy, String webElementLocator) {
         try {
             switch (locatorStrategy.toLowerCase()) {
                 case "id":
@@ -113,7 +113,7 @@ public class SeleniumWrapper {
         }
     }
 
-    public void waitUntilElementVisibleBy(String locatorStrategy, String webElementLocator) {
+    public void waitUntilElementVisible(String locatorStrategy, String webElementLocator) {
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(By.id(webElementLocator)));
@@ -145,7 +145,7 @@ public class SeleniumWrapper {
         }
     }
 
-    public void waitUntilElementClickableBy(String locatorStrategy, String webElementLocator) {
+    public void waitUntilElementClickable(String locatorStrategy, String webElementLocator) {
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.id(webElementLocator)));
@@ -177,7 +177,7 @@ public class SeleniumWrapper {
         }
     }
 
-    public void waitUntilElementEnabledBy(String locatorStrategy, final String webElementLocator) {
+    public void waitUntilElementEnabled(String locatorStrategy, final String webElementLocator) {
         WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
         ExpectedCondition elementIsEnabled;
         switch (locatorStrategy.toLowerCase()) {
@@ -309,7 +309,7 @@ public class SeleniumWrapper {
         }
     }
 
-    public void waitUntilElementNotVisibleBy(String locatorStrategy, String webElementLocator) {
+    public void waitUntilElementNotVisible(String locatorStrategy, String webElementLocator) {
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.invisibilityOfElementLocated(By.id(webElementLocator)));
@@ -341,7 +341,7 @@ public class SeleniumWrapper {
         }
     }
 
-    protected String replaceWebElementLocatorPlaceholder(String webElementLocator, String placeholderText, String replacementText) {
+    public String replaceWebElementLocatorPlaceholder(String webElementLocator, String placeholderText, String replacementText) {
         return webElementLocator.replaceAll(placeholderText, replacementText);
     }
 
@@ -428,7 +428,7 @@ public class SeleniumWrapper {
         }
     }
 
-    public void scrollToElementBy(String locatorStrategy, String webElementLocator) {
+    public void scrollToElement(String locatorStrategy, String webElementLocator) {
         /** Scroll to the element using Touch Actions
          Actions actions = new Actions(driver);
          actions.moveToElement(element);
@@ -436,7 +436,7 @@ public class SeleniumWrapper {
          waitUntilElementEnabled(element);
          **/
         // Scroll to the element using JavascriptExecutor
-        waitUntilElementVisibleBy(locatorStrategy, webElementLocator);
+        waitUntilElementVisible(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(By.id(webElementLocator)));
@@ -468,8 +468,8 @@ public class SeleniumWrapper {
         }
     }
 
-    public void inputTextBy(String locatorStrategy, String webElementLocator, String text) {
-        waitUntilElementEnabledBy(locatorStrategy, webElementLocator);
+    public void inputText(String locatorStrategy, String webElementLocator, String text) {
+        waitUntilElementEnabled(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 driver.findElement(By.id(webElementLocator)).sendKeys(text);
@@ -501,8 +501,8 @@ public class SeleniumWrapper {
         }
     }
 
-    public void clickElementBy(String locatorStrategy, String webElementLocator) {
-        waitUntilElementClickableBy(locatorStrategy, webElementLocator);
+    public void clickElement(String locatorStrategy, String webElementLocator) {
+        waitUntilElementClickable(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 driver.findElement(By.id(webElementLocator)).click();
@@ -534,8 +534,8 @@ public class SeleniumWrapper {
         }
     }
 
-    public void clickElementUsingXCoordinatesBy(String locatorStrategy, String webElementLocator) {
-        waitUntilElementClickableBy(locatorStrategy, webElementLocator);
+    public void clickElementUsingXCoordinates(String locatorStrategy, String webElementLocator) {
+        waitUntilElementClickable(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.id(webElementLocator)).getLocation().x + ")");
@@ -575,8 +575,8 @@ public class SeleniumWrapper {
         }
     }
 
-    public void clickElementUsingYCoordinatesBy(String locatorStrategy, String webElementLocator) {
-        waitUntilElementClickableBy(locatorStrategy, webElementLocator);
+    public void clickElementUsingYCoordinates(String locatorStrategy, String webElementLocator) {
+        waitUntilElementClickable(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 ((JavascriptExecutor)driver).executeScript("window.scrollTo(0," + driver.findElement(By.id(webElementLocator)).getLocation().y + ")");
@@ -616,8 +616,8 @@ public class SeleniumWrapper {
         }
     }
 
-    public void clickElementUsingJavascriptExecutorBy(String locatorStrategy, String webElementLocator) {
-        waitUntilElementClickableBy(locatorStrategy, webElementLocator);
+    public void clickElementUsingJavascriptExecutor(String locatorStrategy, String webElementLocator) {
+        waitUntilElementClickable(locatorStrategy, webElementLocator);
         JavascriptExecutor js = (JavascriptExecutor)driver;
         switch (locatorStrategy.toLowerCase()) {
             case "id":
@@ -650,8 +650,8 @@ public class SeleniumWrapper {
         }
     }
 
-    public void selectFromDropdownBy(String locatorStrategy, String webElementLocator, String visibleText) {
-        clickElementUsingJavascriptExecutorBy(locatorStrategy, webElementLocator);
+    public void selectFromDropdown(String locatorStrategy, String webElementLocator, String visibleText) {
+        clickElementUsingJavascriptExecutor(locatorStrategy, webElementLocator);
         Select dropdown;
         switch (locatorStrategy.toLowerCase()) {
             case "id":
@@ -692,8 +692,8 @@ public class SeleniumWrapper {
         }
     }
 
-    protected String getTextBy(String locatorStrategy, String webElementLocator) {
-        waitUntilElementVisibleBy(locatorStrategy, webElementLocator);
+    protected String getText(String locatorStrategy, String webElementLocator) {
+        waitUntilElementVisible(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 return driver.findElement(By.id(webElementLocator)).getText();
@@ -718,8 +718,8 @@ public class SeleniumWrapper {
         return null;
     }
 
-    public void pressKeyBy(String locatorStrategy, String webElementLocator, CharSequence asciiCode) {
-        waitUntilElementVisibleBy(locatorStrategy, webElementLocator);
+    public void pressKey(String locatorStrategy, String webElementLocator, CharSequence asciiCode) {
+        waitUntilElementVisible(locatorStrategy, webElementLocator);
         switch (locatorStrategy.toLowerCase()) {
             case "id":
                 driver.findElement(By.id(webElementLocator)).sendKeys(asciiCode);

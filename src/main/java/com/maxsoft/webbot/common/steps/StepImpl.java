@@ -1,6 +1,7 @@
 package com.maxsoft.webbot.common.steps;
 
 import com.maxsoft.webbot.common.Base;
+import com.maxsoft.webbot.common.wrapper.SeleniumWrapper;
 import com.maxsoft.webbot.util.ascii.StringToAsciiMapper;
 import com.maxsoft.webbot.util.driver.Driver;
 import com.maxsoft.webbot.util.reader.Excel;
@@ -25,7 +26,9 @@ import static com.maxsoft.webbot.common.Base.TEST_DATA_FILE_PATH;
 public class StepImpl {
 
     private WebDriver driver = Driver.driver;
+
     private Base baseObj = PageFactory.initElements(driver, Base.class);
+    private SeleniumWrapper seleniumWrapperObj = PageFactory.initElements(driver, SeleniumWrapper.class);
 
     private String locatorRetrievingDataStoreType = "";
     private String locatorRetrievingDataStoreVariableName = "";
@@ -183,9 +186,9 @@ public class StepImpl {
                 }
             } else {
                 if (baseObj.isVariableContainsTrue(isVisible)) {
-                    baseObj.verifyElementIsVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                    seleniumWrapperObj.verifyElementIsVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
                 } else {
-                    baseObj.verifyElementIsNotVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                    seleniumWrapperObj.verifyElementIsNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
                 }
             }
             clearVariableValues();
@@ -211,7 +214,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.waitUntilElementVisible(sheetName, elementName);
             } else {
-                baseObj.waitUntilElementVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.waitUntilElementVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
             clearVariableValues();
 
@@ -236,7 +239,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.waitUntilElementNotVisible(sheetName, elementName);
             } else {
-                baseObj.waitUntilElementNotVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.waitUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
             clearVariableValues();
 
@@ -259,9 +262,9 @@ public class StepImpl {
             locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
 
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
-                baseObj.click(sheetName, elementName);
+                baseObj.clickElement(sheetName, elementName);
             } else {
-                baseObj.clickElementBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.clickElement(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
             clearVariableValues();
 
@@ -295,10 +298,10 @@ public class StepImpl {
                 }
             } else {
                 if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
-                    baseObj.inputTextBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName),
+                    seleniumWrapperObj.inputText(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName),
                             baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName));
                 } else {
-                    baseObj.inputTextBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), inputText);
+                    seleniumWrapperObj.inputText(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), inputText);
                 }
             }
             clearVariableValues();
@@ -325,7 +328,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.pressKey(sheetName, elementName, asciiCode);
             } else {
-                baseObj.pressKeyBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), asciiCode);
+                seleniumWrapperObj.pressKey(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), asciiCode);
             }
             clearVariableValues();
 

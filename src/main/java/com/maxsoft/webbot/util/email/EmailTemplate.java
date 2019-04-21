@@ -1,5 +1,9 @@
 package com.maxsoft.webbot.util.email;
 
+import org.json.simple.parser.ParseException;
+import java.io.IOException;
+import static com.maxsoft.webbot.util.testresults.JsonReportReader.*;
+
 /**
  * Project Name : MaxSoft-WebBot
  * Developer    : Osanda Deshan
@@ -9,14 +13,10 @@ package com.maxsoft.webbot.util.email;
  * Description  :
  **/
 
-import org.json.simple.parser.ParseException;
-import java.io.IOException;
-import static com.maxsoft.webbot.util.testresults.JsonReportReader.*;
-
 
 public class EmailTemplate {
 
-    static String template = "<!DOCTYPE html> \n" +
+    private static String template = "<!DOCTYPE html> \n" +
             "            <html> \n" +
             "            <head> \n" +
             "            </head> \n" +
@@ -108,7 +108,7 @@ public class EmailTemplate {
             "            </table> \n" +
             "            <br><br>";
 
-    public static String appendToTemplate() throws IOException, ParseException {
+    private static String appendToTemplate() throws IOException, ParseException {
         String appendHtml = "<style>\n" +
                 "       table#regression_table tr:nth-child(odd){background-color: #f2f2f2}\n" +
                 "   </style>\n" +

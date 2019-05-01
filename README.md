@@ -3,8 +3,9 @@
 
 ## Introduction
 The main reason for developing this framework is to provide an easy way for Technical QA, Developer or Non-technical QA to perform Web testing in an easy manner.
+<br />
 
-### Technologies/Frameworks used
+## Technologies/Frameworks used
 - Java
 - Gauge Framework
 - Selenium
@@ -12,16 +13,19 @@ The main reason for developing this framework is to provide an easy way for Tech
 - Junit
 - Apache POI
 - Apache Maven
+<br />
 
-### Supported Platforms
+## Supported Platforms
 - Windows
 - Linux
 - Mac OS
+<br />
 
-### Supported Languages
+## Supported Languages
 - Java
+<br />
 
-### Advantages
+## Advantages
 - Generation of an executable document.
 - Human readable tests, business language and Mark-down syntax.
 - Tests can be designed even by a non- technical person.

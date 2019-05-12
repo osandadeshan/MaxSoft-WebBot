@@ -1,6 +1,7 @@
 package com.maxsoft.webbot.common.wrapper;
 
 import com.maxsoft.webbot.util.driver.Driver;
+import com.thoughtworks.gauge.Gauge;
 import org.junit.Assert;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.*;
@@ -27,6 +28,35 @@ public class SeleniumWrapper {
 
     public SeleniumWrapper() {
         PageFactory.initElements(driver, this);
+    }
+
+    public boolean isElementDisplayed(String locatorStrategy, String webElementLocator) {
+        try {
+            switch (locatorStrategy.toLowerCase()) {
+                case "id":
+                    return driver.findElement(By.id(webElementLocator)).isDisplayed();
+                case "xpath":
+                    return driver.findElement(By.xpath(webElementLocator)).isDisplayed();
+                case "class name":
+                    return driver.findElement(By.className(webElementLocator)).isDisplayed();
+                case "css selector":
+                    return driver.findElement(By.cssSelector(webElementLocator)).isDisplayed();
+                case "link text":
+                    return driver.findElement(By.linkText(webElementLocator)).isDisplayed();
+                case "partial link text":
+                    return driver.findElement(By.partialLinkText(webElementLocator)).isDisplayed();
+                case "name":
+                    return driver.findElement(By.name(webElementLocator)).isDisplayed();
+                case "tag name":
+                    return driver.findElement(By.tagName(webElementLocator)).isDisplayed();
+                default:
+                    Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
+                    break;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+        return false;
     }
 
     public void verifyElementIsVisible(String locatorStrategy, String webElementLocator) {
@@ -111,6 +141,28 @@ public class SeleniumWrapper {
         } catch (NoSuchElementException ex) {
 
         }
+    }
+
+    public void refreshUntilElementVisible(String locatorStrategy, String webElementLocator, int refreshCount) {
+        int i = 0;
+        do {
+            driver.navigate().refresh();
+            i++;
+        } while (!isElementDisplayed(locatorStrategy, webElementLocator) && i < refreshCount);
+        System.out.println("Refreshed page " + i + "time/s");
+        Gauge.writeMessage("Refreshed page " + i + "time/s");
+        waitUntilElementVisible(locatorStrategy, webElementLocator);
+    }
+
+    public void refreshUntilElementNotVisible(String locatorStrategy, String webElementLocator, int refreshCount) {
+        int i = 0;
+        do {
+            driver.navigate().refresh();
+            i++;
+        } while (isElementDisplayed(locatorStrategy, webElementLocator) && i < refreshCount);
+        System.out.println("Refreshed page " + i + " time/s");
+        Gauge.writeMessage("Refreshed page " + i + " time/s");
+        waitUntilElementNotVisible(locatorStrategy, webElementLocator);
     }
 
     public void waitUntilElementVisible(String locatorStrategy, String webElementLocator) {

@@ -96,6 +96,18 @@ public class Base {
         seleniumWrapperObj.verifyElementIsNotVisible(locatorStrategy, webElementLocator);
     }
 
+    public void refreshUntilElementVisible(String sheetName, String elementName, int refreshCount) {
+        String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
+        String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
+        seleniumWrapperObj.refreshUntilElementVisible(locatorStrategy, webElementLocator, refreshCount);
+    }
+
+    public void refreshUntilElementNotVisible(String sheetName, String elementName, int refreshCount) {
+        String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
+        String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
+        seleniumWrapperObj.refreshUntilElementNotVisible(locatorStrategy, webElementLocator, refreshCount);
+    }
+
     public void waitUntilElementVisible(String sheetName, String elementName) {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);

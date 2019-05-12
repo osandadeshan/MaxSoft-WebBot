@@ -48,6 +48,7 @@ public class StepImpl {
     private String isVisible = "";
     private String isInputTextFromDataStore = "";
     private String inputText = "";
+    private String refreshCount = "";
 
     // Clear variable values
     private void clearVariableValues() {
@@ -69,6 +70,7 @@ public class StepImpl {
         isVisible = "";
         isInputTextFromDataStore = "";
         inputText = "";
+        refreshCount = "";
     }
 
     // Use this method to keep idling the application for a given time in seconds
@@ -215,6 +217,58 @@ public class StepImpl {
                 baseObj.waitUntilElementVisible(sheetName, elementName);
             } else {
                 seleniumWrapperObj.waitUntilElementVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+            }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to refresh until the element is visible on the current view port
+    @Step("Refresh Until Element Is Visible On The Page <table>")
+    public void refreshUntilElementVisible(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+            refreshCount = row.getCell(columnNames.get(7));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.refreshUntilElementVisible(sheetName, elementName, Integer.valueOf(refreshCount));
+            } else {
+                seleniumWrapperObj.refreshUntilElementVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), Integer.valueOf(refreshCount));
+            }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to refresh until the element is not visible on the current view port
+    @Step("Refresh Until Element Is Not Visible On The Page <table>")
+    public void refreshUntilElementNotVisible(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+            refreshCount = row.getCell(columnNames.get(7));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.refreshUntilElementNotVisible(sheetName, elementName, Integer.valueOf(refreshCount));
+            } else {
+                seleniumWrapperObj.refreshUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), Integer.valueOf(refreshCount));
             }
             clearVariableValues();
 

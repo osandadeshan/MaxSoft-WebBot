@@ -1,14 +1,5 @@
 package com.maxsoft.webbot.util.email;
 
-/**
- * Project Name : MaxSoft-WebBot
- * Developer    : Osanda Deshan
- * Version      : 1.0.0
- * Date         : 24/03/2019
- * Time         : 17:37
- * Description  :
- **/
-
 import com.maxsoft.webbot.util.chart.BarChart;
 import com.maxsoft.webbot.util.chart.PieChart;
 import com.maxsoft.webbot.util.testresults.JsonReportReader;
@@ -28,10 +19,19 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+/**
+ * Project Name : MaxSoft-WebBot
+ * Developer    : Osanda Deshan
+ * Version      : 1.0.0
+ * Date         : 24/03/2019
+ * Time         : 17:37
+ * Description  :
+ **/
+
 
 public class Email {
 
-    public static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
+    private static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
 
     private static final String DEV = "dev";
     private static final String QA = "qa";
@@ -180,8 +180,9 @@ public class Email {
 
                 // first part (the html)
                 BodyPart messageBodyPart = new MimeBodyPart();
-                String htmlText = "<h" + emailBodyTitleHeadingSize + ">" + emailBodyTitle + "</h" + emailBodyTitleHeadingSize + ">" +
-                        "<br />" + emailBody + "<br /><br /><br />" + executionResults;
+                String htmlText = "<h2 style=\"color:black;\"> Test Execution Status: " + "<span " + JsonReportReader.getExecutionStatusColor() + ">" + JsonReportReader.getExecutionStatus() + "</h2><br />" +
+                        "<h" + emailBodyTitleHeadingSize + ">" + emailBodyTitle + "</h" + emailBodyTitleHeadingSize + ">" + "<br />" +
+                        emailBody + "<br /><br /><br />" + executionResults;
                 messageBodyPart.setContent(htmlText, "text/html");
                 // add it
                 multipart.addBodyPart(messageBodyPart);

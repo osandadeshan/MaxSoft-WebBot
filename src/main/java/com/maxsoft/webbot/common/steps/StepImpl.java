@@ -1,5 +1,7 @@
-package com.maxsoft.webbot.common;
+package com.maxsoft.webbot.common.steps;
 
+import com.maxsoft.webbot.common.Base;
+import com.maxsoft.webbot.common.wrapper.SeleniumWrapper;
 import com.maxsoft.webbot.util.ascii.StringToAsciiMapper;
 import com.maxsoft.webbot.util.driver.Driver;
 import com.maxsoft.webbot.util.reader.Excel;
@@ -24,7 +26,9 @@ import static com.maxsoft.webbot.common.Base.TEST_DATA_FILE_PATH;
 public class StepImpl {
 
     private WebDriver driver = Driver.driver;
+
     private Base baseObj = PageFactory.initElements(driver, Base.class);
+    private SeleniumWrapper seleniumWrapperObj = PageFactory.initElements(driver, SeleniumWrapper.class);
 
     private String locatorRetrievingDataStoreType = "";
     private String locatorRetrievingDataStoreVariableName = "";
@@ -44,6 +48,7 @@ public class StepImpl {
     private String isVisible = "";
     private String isInputTextFromDataStore = "";
     private String inputText = "";
+    private String refreshCount = "";
 
     // Clear variable values
     private void clearVariableValues() {
@@ -65,6 +70,7 @@ public class StepImpl {
         isVisible = "";
         isInputTextFromDataStore = "";
         inputText = "";
+        refreshCount = "";
     }
 
     // Use this method to keep idling the application for a given time in seconds
@@ -182,9 +188,9 @@ public class StepImpl {
                 }
             } else {
                 if (baseObj.isVariableContainsTrue(isVisible)) {
-                    baseObj.verifyElementIsVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                    seleniumWrapperObj.verifyElementIsVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
                 } else {
-                    baseObj.verifyElementIsNotVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                    seleniumWrapperObj.verifyElementIsNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
                 }
             }
             clearVariableValues();
@@ -210,7 +216,59 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.waitUntilElementVisible(sheetName, elementName);
             } else {
-                baseObj.waitUntilElementVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.waitUntilElementVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+            }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to refresh until the element is visible on the current view port
+    @Step("Refresh Until Element Is Visible On The Page <table>")
+    public void refreshUntilElementVisible(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+            refreshCount = row.getCell(columnNames.get(7));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.refreshUntilElementVisible(sheetName, elementName, Integer.valueOf(refreshCount));
+            } else {
+                seleniumWrapperObj.refreshUntilElementVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), Integer.valueOf(refreshCount));
+            }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to refresh until the element is not visible on the current view port
+    @Step("Refresh Until Element Is Not Visible On The Page <table>")
+    public void refreshUntilElementNotVisible(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+            refreshCount = row.getCell(columnNames.get(7));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.refreshUntilElementNotVisible(sheetName, elementName, Integer.valueOf(refreshCount));
+            } else {
+                seleniumWrapperObj.refreshUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), Integer.valueOf(refreshCount));
             }
             clearVariableValues();
 
@@ -235,7 +293,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.waitUntilElementNotVisible(sheetName, elementName);
             } else {
-                baseObj.waitUntilElementNotVisibleBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.waitUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
             clearVariableValues();
 
@@ -258,9 +316,9 @@ public class StepImpl {
             locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
 
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
-                baseObj.click(sheetName, elementName);
+                baseObj.clickElement(sheetName, elementName);
             } else {
-                baseObj.clickElementBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.clickElement(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
             clearVariableValues();
 
@@ -294,10 +352,10 @@ public class StepImpl {
                 }
             } else {
                 if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
-                    baseObj.inputTextBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName),
+                    seleniumWrapperObj.inputText(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName),
                             baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName));
                 } else {
-                    baseObj.inputTextBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), inputText);
+                    seleniumWrapperObj.inputText(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), inputText);
                 }
             }
             clearVariableValues();
@@ -324,7 +382,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.pressKey(sheetName, elementName, asciiCode);
             } else {
-                baseObj.pressKeyBy(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), asciiCode);
+                seleniumWrapperObj.pressKey(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), asciiCode);
             }
             clearVariableValues();
 

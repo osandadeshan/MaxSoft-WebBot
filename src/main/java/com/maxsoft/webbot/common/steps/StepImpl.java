@@ -223,6 +223,31 @@ public class StepImpl {
         }
     }
 
+    // Use this method to wait until the element is not visible on the current view port
+    @Step("Wait Until Element Is Not Visible On The Page <table>")
+    public void waitUntilElementNotVisible(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
+            sheetName = row.getCell(columnNames.get(2));
+            elementName = row.getCell(columnNames.get(3));
+            locatorStrategy = row.getCell(columnNames.get(4));
+            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
+            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
+
+            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
+                baseObj.waitUntilElementNotVisible(sheetName, elementName);
+            } else {
+                seleniumWrapperObj.waitUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+            }
+            clearVariableValues();
+
+        }
+    }
+
     // Use this method to refresh until the element is visible on the current view port
     @Step("Refresh Until Element Is Visible On The Page <table>")
     public void refreshUntilElementVisible(Table table) {
@@ -269,31 +294,6 @@ public class StepImpl {
                 baseObj.refreshUntilElementNotVisible(sheetName, elementName, Integer.valueOf(refreshCount));
             } else {
                 seleniumWrapperObj.refreshUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), Integer.valueOf(refreshCount));
-            }
-            clearVariableValues();
-
-        }
-    }
-
-    // Use this method to wait until the element is not visible on the current view port
-    @Step("Wait Until Element Is Not Visible On The Page <table>")
-    public void waitUntilElementNotVisible(Table table) {
-        List<TableRow> rows = table.getTableRows();
-        List<String> columnNames = table.getColumnNames();
-
-        for (TableRow row : rows) {
-
-            isElementFromLocatorsFile = row.getCell(columnNames.get(1));
-            sheetName = row.getCell(columnNames.get(2));
-            elementName = row.getCell(columnNames.get(3));
-            locatorStrategy = row.getCell(columnNames.get(4));
-            locatorRetrievingDataStoreType = row.getCell(columnNames.get(5));
-            locatorRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
-
-            if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
-                baseObj.waitUntilElementNotVisible(sheetName, elementName);
-            } else {
-                seleniumWrapperObj.waitUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
             }
             clearVariableValues();
 

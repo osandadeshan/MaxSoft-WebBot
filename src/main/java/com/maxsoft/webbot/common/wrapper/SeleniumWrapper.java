@@ -149,8 +149,8 @@ public class SeleniumWrapper {
             driver.navigate().refresh();
             i++;
         } while (!isElementDisplayed(locatorStrategy, webElementLocator) && i < refreshCount);
-        System.out.println("Refreshed page " + i + "time/s");
-        Gauge.writeMessage("Refreshed page " + i + "time/s");
+        System.out.println("Refreshed page " + i + " time/s");
+        Gauge.writeMessage("Refreshed page " + i + " time/s");
         waitUntilElementVisible(locatorStrategy, webElementLocator);
     }
 

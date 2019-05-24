@@ -389,5 +389,28 @@ public class StepImpl {
         }
     }
 
+    // Use this method to open an url in a new tab
+    @Step("Open URL In New Tab <table>")
+    public void OpenURLNewTab(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isInputTextFromDataStore = row.getCell(columnNames.get(1));
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(2));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(3));
+            inputText = row.getCell(columnNames.get(4));
+
+            if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
+                seleniumWrapperObj.openURLNewTab(baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName));
+            } else {
+                seleniumWrapperObj.openURLNewTab(inputText);
+            }
+            clearVariableValues();
+
+        }
+    }
+
     
 }

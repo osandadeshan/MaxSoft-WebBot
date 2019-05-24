@@ -36,7 +36,7 @@ Tags: search
    |Press Enter           |yes                                      |HomePage          |txt_search_bar      |                               |                              |                                       |\ue007        |
 
 * Replace Element Locator Placeholder And Save To Data Store
-   |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store |If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
+   |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store?|If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
    |-------------------------|----------|------------------|----------------|---------------------------------------------|-----------------------|--------------------------------|------------------------|-------------------------------------|----------------------------------------------|
    |Get search result locator|HomePage  |lbl_search_result |searchText      |yes                                          |scenario               |searchVal                       |                        |scenario                             |searchResultLocator                           |
 
@@ -84,7 +84,7 @@ Tags: search
    |Click on Search button |yes                                      |HomePage          |btn_search          |                               |                              |                                       |
 
 * Replace Element Locator Placeholder And Save To Data Store
-   |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store |If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
+   |Step Name                |Sheet Name|Element Name      |Placeholder Text|Is Replacement Text Retrieve From Data Store?|If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Replacement Text |Data Store Type To Save Final Locator|Data Store Variable Name To Save Final Locator|
    |-------------------------|----------|------------------|----------------|---------------------------------------------|-----------------------|--------------------------------|------------------------|-------------------------------------|----------------------------------------------|
    |Get search result locator|HomePage  |lbl_search_result |searchText      |yes                                          |scenario               |searchVal                       |                        |scenario                             |searchResultLocator                           |
 

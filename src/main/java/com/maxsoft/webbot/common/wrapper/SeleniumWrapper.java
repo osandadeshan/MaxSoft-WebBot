@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import com.google.common.base.Function;
 
@@ -801,6 +802,13 @@ public class SeleniumWrapper {
                 Assert.fail("\"" + locatorStrategy + "\" Locator strategy is not supported");
                 break;
         }
+    }
+
+    public void openURLNewTab(String url) {
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(tabs.size()-1));
+        driver.navigate().to(url);
     }
 
 

@@ -811,5 +811,13 @@ public class SeleniumWrapper {
         driver.navigate().to(url);
     }
 
+    public void openURLCurrentTab(String url) {
+        driver.navigate().to(url);
+    }
+
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
 
 }

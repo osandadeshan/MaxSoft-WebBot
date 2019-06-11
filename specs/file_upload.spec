@@ -19,10 +19,15 @@ Description     : This is an executable specification file
    |Open google.com           |no                              |                               |                                        |https://www.google.com/               |
    |Open file upload demo site|no                              |                               |                                        |http://demo.guru99.com/test/upload/   |
 
+* Current Page Title Is
+   |Step Name                  |Is URL Retrieve From Data Store?|If Yes, Element Data Store Type|If Yes, Element Data Store Variable Name|If No, URL                              |
+   |---------------------------|--------------------------------|-------------------------------|----------------------------------------|----------------------------------------|
+   |Validate current page title|no                              |                               |                                        |File Upload Demo                        |
+
 * Input Text
-   |Step Name         |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Does Input Text Retrieve From Data Store?|If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Text                                             |
-   |------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|-----------------------------------------|-----------------------|--------------------------------|--------------------------------------------------------|
-   |Send file path    |yes                                      |UploadPage        |btn_test_upload     |                               |                              |                                       |                                         |                       |                                |C:\\Users\\onimalarathna\\Desktop\\GGMB_Automation\\resources\\file_upload_titles\\ggate30_to_ingest_Mv2.epub|
+   |Step Name         |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Does Input Text Retrieve From Data Store?|If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Text                                                                                                   |
+   |------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|-----------------------------------------|-----------------------|--------------------------------|--------------------------------------------------------------------------------------------------------------|
+   |Send file path    |yes                                      |UploadPage        |btn_test_upload     |                               |                              |                                       |                                         |                       |                                |C:\\Users\\onimalarat\\IdeaProjects\\MaxSoft-WebBot\\resources\\file_upload_titles\\ggate30_to_ingest_Mv2.epub|
 
 * Click Element
    |Step Name                      |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
@@ -38,3 +43,16 @@ Description     : This is an executable specification file
    |Step Name                              |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|
    |---------------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Upload success label should be visible |yes                                      |UploadPage        |lbl_upload_success  |                               |                              |                                       |
+
+
+
+_________________________
+* Open URL In Current Tab
+   |Step Name                  |Is URL Retrieve From Data Store?|If Yes, Element Data Store Type|If Yes, Element Data Store Variable Name|If No, URL                              |
+   |---------------------------|--------------------------------|-------------------------------|----------------------------------------|----------------------------------------|
+   |Open automationpractice.com|no                              |                               |                                        |http://automationpractice.com/index.php |
+
+* Current Page Title Is
+   |Step Name                  |Is URL Retrieve From Data Store?|If Yes, Element Data Store Type|If Yes, Element Data Store Variable Name|If No, URL                              |
+   |---------------------------|--------------------------------|-------------------------------|----------------------------------------|----------------------------------------|
+   |Validate current page title|no                              |                               |                                        |My Store                                |

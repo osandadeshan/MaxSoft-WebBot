@@ -8,10 +8,15 @@ import com.maxsoft.webbot.util.reader.Excel;
 import com.thoughtworks.gauge.Step;
 import com.thoughtworks.gauge.Table;
 import com.thoughtworks.gauge.TableRow;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+
 import java.util.List;
+
 import static com.maxsoft.webbot.common.Base.TEST_DATA_FILE_PATH;
+import static com.maxsoft.webbot.util.datastore.DataStores.readFromDataStore;
+import static com.maxsoft.webbot.util.datastore.DataStores.saveToDataStore;
 
 /**
  * Project Name : MaxSoft WebBot
@@ -91,7 +96,7 @@ public class StepImpl {
             valueSavingDataStoreVariableName = row.getCell(columnNames.get(1));
             valueToBeStored = row.getCell(columnNames.get(2));
 
-            baseObj.saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName, valueToBeStored);
+            saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName, valueToBeStored, Boolean.TRUE);
             clearVariableValues();
 
         }
@@ -108,7 +113,7 @@ public class StepImpl {
             valueRetrievingDataStoreType = row.getCell(columnNames.get(0));
             valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(1));
 
-            baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName);
+            readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE);
             clearVariableValues();
 
         }
@@ -127,8 +132,8 @@ public class StepImpl {
             valueSavingDataStoreType = row.getCell(columnNames.get(2));
             valueSavingDataStoreVariableName = row.getCell(columnNames.get(3));
 
-            baseObj.saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName,
-                    Excel.getCellContentInRightSideCell(TEST_DATA_FILE_PATH, sheetName, cellContent));
+            saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName,
+                    Excel.getCellContentInRightSideCell(TEST_DATA_FILE_PATH, sheetName, cellContent), Boolean.TRUE);
             clearVariableValues();
 
         }
@@ -154,7 +159,7 @@ public class StepImpl {
 
             if (baseObj.isVariableContainsTrue(isReplacementTextFromDataStore)) {
                 baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(sheetName, elementName, placeholderText,
-                        baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName), valueSavingDataStoreType, valueSavingDataStoreVariableName);
+                        readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE), valueSavingDataStoreType, valueSavingDataStoreVariableName);
             } else {
                 baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(sheetName, elementName, placeholderText,
                         replacementText, valueSavingDataStoreType, valueSavingDataStoreVariableName);
@@ -188,9 +193,9 @@ public class StepImpl {
                 }
             } else {
                 if (baseObj.isVariableContainsTrue(isVisible)) {
-                    seleniumWrapperObj.verifyElementIsVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                    seleniumWrapperObj.verifyElementIsVisible(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE));
                 } else {
-                    seleniumWrapperObj.verifyElementIsNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                    seleniumWrapperObj.verifyElementIsNotVisible(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE));
                 }
             }
             clearVariableValues();
@@ -216,7 +221,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.waitUntilElementVisible(sheetName, elementName);
             } else {
-                seleniumWrapperObj.waitUntilElementVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.waitUntilElementVisible(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE));
             }
             clearVariableValues();
 
@@ -241,7 +246,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.waitUntilElementNotVisible(sheetName, elementName);
             } else {
-                seleniumWrapperObj.waitUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.waitUntilElementNotVisible(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE));
             }
             clearVariableValues();
 
@@ -267,7 +272,8 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.refreshUntilElementVisible(sheetName, elementName, Integer.valueOf(refreshCount));
             } else {
-                seleniumWrapperObj.refreshUntilElementVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), Integer.valueOf(refreshCount));
+                seleniumWrapperObj.refreshUntilElementVisible(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE),
+                        Integer.valueOf(refreshCount));
             }
             clearVariableValues();
 
@@ -293,7 +299,8 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.refreshUntilElementNotVisible(sheetName, elementName, Integer.valueOf(refreshCount));
             } else {
-                seleniumWrapperObj.refreshUntilElementNotVisible(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), Integer.valueOf(refreshCount));
+                seleniumWrapperObj.refreshUntilElementNotVisible(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE),
+                        Integer.valueOf(refreshCount));
             }
             clearVariableValues();
 
@@ -318,7 +325,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.clickElement(sheetName, elementName);
             } else {
-                seleniumWrapperObj.clickElement(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName));
+                seleniumWrapperObj.clickElement(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE));
             }
             clearVariableValues();
 
@@ -346,16 +353,16 @@ public class StepImpl {
 
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
-                    baseObj.inputText(sheetName, elementName, baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName));
+                    baseObj.inputText(sheetName, elementName, readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE));
                 } else {
                     baseObj.inputText(sheetName, elementName, inputText);
                 }
             } else {
                 if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
-                    seleniumWrapperObj.inputText(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName),
-                            baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName));
+                    seleniumWrapperObj.inputText(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE),
+                            readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE));
                 } else {
-                    seleniumWrapperObj.inputText(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), inputText);
+                    seleniumWrapperObj.inputText(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE), inputText);
                 }
             }
             clearVariableValues();
@@ -382,7 +389,7 @@ public class StepImpl {
             if (baseObj.isVariableContainsTrue(isElementFromLocatorsFile)) {
                 baseObj.pressKey(sheetName, elementName, asciiCode);
             } else {
-                seleniumWrapperObj.pressKey(locatorStrategy, baseObj.readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName), asciiCode);
+                seleniumWrapperObj.pressKey(locatorStrategy, readFromDataStore(locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName, Boolean.TRUE), asciiCode);
             }
             clearVariableValues();
 
@@ -403,7 +410,7 @@ public class StepImpl {
             inputText = row.getCell(columnNames.get(4));
 
             if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
-                seleniumWrapperObj.openURLNewTab(baseObj.readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName));
+                seleniumWrapperObj.openURLNewTab(readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE));
             } else {
                 seleniumWrapperObj.openURLNewTab(inputText);
             }
@@ -412,5 +419,92 @@ public class StepImpl {
         }
     }
 
-    
+    // Use this method to open an url in the current tab
+    @Step("Open URL In Current Tab <table>")
+    public void OpenURLInCurrentTab(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isInputTextFromDataStore = row.getCell(columnNames.get(1));
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(2));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(3));
+            inputText = row.getCell(columnNames.get(4));
+
+            if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
+                seleniumWrapperObj.openURLCurrentTab(readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE));
+            } else {
+                seleniumWrapperObj.openURLCurrentTab(inputText);
+            }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to validate the page title of the current tab
+    @Step("Current Page Title Is <table>")
+    public void isPageTitleEquals(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isInputTextFromDataStore = row.getCell(columnNames.get(1));
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(2));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(3));
+            inputText = row.getCell(columnNames.get(4));
+
+            if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
+                Assert.assertEquals(readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE), seleniumWrapperObj.getPageTitle());
+            } else {
+                Assert.assertEquals(inputText, seleniumWrapperObj.getPageTitle());
+            }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to close the current tab
+    @Step("Close The Current Tab")
+    public void closeTab() {
+        seleniumWrapperObj.closeTab();
+    }
+
+    // Use this method to switch to a tab using the tab index
+    @Step("Switch To The Tab By Tab Index <tabIndex>")
+    public void switchToTab(int tabIndex) {
+        seleniumWrapperObj.switchToTab(tabIndex);
+    }
+
+    // Use this method to switch to a tab using the tab title
+    @Step("Switch To The Tab By Tab Title <table>")
+    public void switchToTab(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isInputTextFromDataStore = row.getCell(columnNames.get(1));
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(2));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(3));
+            inputText = row.getCell(columnNames.get(4));
+
+            if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
+                seleniumWrapperObj.switchToTab(readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.FALSE));
+            } else {
+                seleniumWrapperObj.switchToTab(inputText);
+            }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to switch to the parent tab
+    @Step("Switch To The Parent Tab")
+    public void switchToParentTab() {
+        seleniumWrapperObj.switchToParentTab();
+    }
+
+
 }

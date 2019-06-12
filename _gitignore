@@ -1,0 +1,25 @@
+# Ignore Compiled Classes
+/target
+
+# Ignore Gauge Execution Data Files
+/.gauge
+/logs
+/out
+/debug.log
+
+# Ignore IntelliJ IDEA Data Files
+/.idea
+
+# Ignore Gauge Reports
+/docs
+/reports
+
+# Ignore Gauge Test Specs
+/specs/Test.spec
+
+# Ignore Java Test Files
+/src/test/java/Demo.java
+
+# Ignore Apple MacOS Operating System Files
+*.DS_Store
+.DS_Store

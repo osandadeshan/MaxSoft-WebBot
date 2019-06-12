@@ -4,14 +4,13 @@ import com.maxsoft.webbot.common.wrapper.SeleniumWrapper;
 import com.maxsoft.webbot.util.driver.Driver;
 import com.maxsoft.webbot.util.reader.Excel;
 import com.thoughtworks.gauge.Gauge;
-import com.thoughtworks.gauge.datastore.DataStore;
-import com.thoughtworks.gauge.datastore.DataStoreFactory;
-import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import java.io.File;
 import java.util.Calendar;
+
+import static com.maxsoft.webbot.util.datastore.DataStores.saveToDataStore;
 
 /**
  * Project Name : MaxSoft-WebBot
@@ -134,7 +133,7 @@ public class Base {
 
     public void replaceWebElementLocatorPlaceholderAndSaveToDataStore(String sheetName, String elementName, String placeholderText, String replacementText,
                                                                          String dataStoreType, String variableName) {
-        saveToDataStore(dataStoreType, variableName, seleniumWrapperObj.replaceWebElementLocatorPlaceholder(Excel.getWebElementLocator(sheetName, elementName), placeholderText, replacementText));
+        saveToDataStore(dataStoreType, variableName, seleniumWrapperObj.replaceWebElementLocatorPlaceholder(Excel.getWebElementLocator(sheetName, elementName), placeholderText, replacementText), Boolean.TRUE);
     }
 
     public void clickElement(String sheetName, String elementName) {
@@ -153,130 +152,6 @@ public class Base {
         String locatorStrategy = Excel.getLocatorStrategy(sheetName, elementName);
         String webElementLocator = Excel.getWebElementLocator(sheetName, elementName);
         seleniumWrapperObj.pressKey(locatorStrategy, webElementLocator, asciiCode);
-    }
-
-    public String getScenarioDataStoreValue(String variableNameOfValueStoredInDataStore) {
-        try {
-            // Fetching Value from the Data Store
-            DataStore scenarioStore = DataStoreFactory.getScenarioDataStore();
-            String value = (String) scenarioStore.get(variableNameOfValueStoredInDataStore);
-            System.out.println("Text inside Scenario Data Store [" + variableNameOfValueStoredInDataStore + "] is: \"" + value + "\"" + "\n\n");
-            Gauge.writeMessage("Text inside Scenario Data Store [" + variableNameOfValueStoredInDataStore + "] is: \"" + value + "\"" + "\n\n");
-            return value;
-        } catch (Exception ex) {
-            System.out.println("Failed to read the text inside Scenario Data Store [" + variableNameOfValueStoredInDataStore + "]" + "\n\n");
-            Gauge.writeMessage("Failed to read the text inside Scenario Data Store [" + variableNameOfValueStoredInDataStore + "]" + "\n\n");
-            return "";
-        }
-    }
-
-    public String getSpecificationDataStoreValue(String variableNameOfValueStoredInDataStore) {
-        try {
-            // Fetching Value from the Data Store
-            DataStore specDataStore = DataStoreFactory.getSpecDataStore();
-            String value = (String) specDataStore.get(variableNameOfValueStoredInDataStore);
-            System.out.println("Text inside Specification Data Store [" + variableNameOfValueStoredInDataStore + "] is: \"" + value + "\"" + "\n\n");
-            Gauge.writeMessage("Text inside Specification Data Store [" + variableNameOfValueStoredInDataStore + "] is: \"" + value + "\"" + "\n\n");
-            return value;
-        } catch (Exception ex) {
-            System.out.println("Failed to read the text inside Specification Data Store [" + variableNameOfValueStoredInDataStore + "]" + "\n\n");
-            Gauge.writeMessage("Failed to read the text inside Specification Data Store [" + variableNameOfValueStoredInDataStore + "]" + "\n\n");
-            return "";
-        }
-    }
-
-    public String getSuiteDataStoreValue(String variableNameOfValueStoredInDataStore) {
-        try {
-            // Fetching Value from the Data Store
-            DataStore suiteStore = DataStoreFactory.getSuiteDataStore();
-            String value = (String) suiteStore.get(variableNameOfValueStoredInDataStore);
-            System.out.println("Text inside Suite Data Store [" + variableNameOfValueStoredInDataStore + "] is: \"" + value + "\"" + "\n\n");
-            Gauge.writeMessage("Text inside Suite Data Store [" + variableNameOfValueStoredInDataStore + "] is: \"" + value + "\"" + "\n\n");
-            return value;
-        } catch (Exception ex) {
-            System.out.println("Failed to read the text inside Suite Data Store [" + variableNameOfValueStoredInDataStore + "]" + "\n\n");
-            Gauge.writeMessage("Failed to read the text inside Suite Data Store [" + variableNameOfValueStoredInDataStore + "]" + "\n\n");
-            return "";
-        }
-    }
-
-    public void saveToScenarioDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
-        try {
-            // Adding value to the Data Store
-            DataStore scenarioStore = DataStoreFactory.getScenarioDataStore();
-            scenarioStore.put(variableNameOfValueToBeStoredInDataStore, valueToBeStoredInDataStore);
-            System.out.println("\"" + valueToBeStoredInDataStore + "\" is successfully saved as a text in Scenario Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-            Gauge.writeMessage("\"" + valueToBeStoredInDataStore + "\" is successfully saved as a text in Scenario Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-        } catch (Exception ex) {
-            System.out.println("\"" + valueToBeStoredInDataStore + "\" is failed to save as a text in Scenario Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-            Gauge.writeMessage("\"" + valueToBeStoredInDataStore + "\" is failed to save as a text in Scenario Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-        }
-    }
-
-    public void saveToSpecificationDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
-        try {
-            // Adding value to the Data Store
-            DataStore specDataStore = DataStoreFactory.getSpecDataStore();
-            specDataStore.put(variableNameOfValueToBeStoredInDataStore, valueToBeStoredInDataStore);
-            System.out.println("\"" + valueToBeStoredInDataStore + "\" is successfully saved as a text in Specification Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-            Gauge.writeMessage("\"" + valueToBeStoredInDataStore + "\" is successfully saved as a text in Specification Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-        } catch (Exception ex) {
-            System.out.println("\"" + valueToBeStoredInDataStore + "\" is failed to save as a text in Specification Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-            Gauge.writeMessage("\"" + valueToBeStoredInDataStore + "\" is failed to save as a text in Specification Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-        }
-    }
-
-    public void saveToSuiteDataStore(String variableNameOfValueToBeStoredInDataStore, String valueToBeStoredInDataStore) {
-        try {
-            // Adding value to the Data Store
-            DataStore suiteStore = DataStoreFactory.getSuiteDataStore();
-            suiteStore.put(variableNameOfValueToBeStoredInDataStore, valueToBeStoredInDataStore);
-            System.out.println("\"" + valueToBeStoredInDataStore + "\" is successfully saved as a text in Suite Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-            Gauge.writeMessage("\"" + valueToBeStoredInDataStore + "\" is successfully saved as a text in Suite Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-        } catch (Exception ex) {
-            System.out.println("\"" + valueToBeStoredInDataStore + "\" is failed to save as a text in Suite Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-            Gauge.writeMessage("\"" + valueToBeStoredInDataStore + "\" is failed to save as a text in Suite Data Store [" + variableNameOfValueToBeStoredInDataStore + "]");
-        }
-    }
-
-    public void saveToDataStore(String dataStoreType, String variableName, String valueToBeStored){
-        switch (dataStoreType.toLowerCase()){
-            case "spec":
-                saveToSpecificationDataStore(variableName, valueToBeStored);
-                break;
-            case "specification":
-                saveToSpecificationDataStore(variableName, valueToBeStored);
-                break;
-            case "scenario":
-                saveToScenarioDataStore(variableName, valueToBeStored);
-                break;
-            case "suite":
-                saveToSuiteDataStore(variableName, valueToBeStored);
-                break;
-            default:
-                Assert.fail("Please provide a valid data store type");
-        }
-    }
-
-    public String readFromDataStore(String dataStoreType, String variableName){
-        String value = "";
-        switch (dataStoreType.toLowerCase()){
-            case "spec":
-                value = getSpecificationDataStoreValue(variableName);
-                break;
-            case "specification":
-                value = getSpecificationDataStoreValue(variableName);
-                break;
-            case "scenario":
-                value = getScenarioDataStoreValue(variableName);
-                break;
-            case "suite":
-                value = getSuiteDataStoreValue(variableName);
-                break;
-            default:
-                Assert.fail("Please provide a valid data store type");
-        }
-        return value;
     }
 
 

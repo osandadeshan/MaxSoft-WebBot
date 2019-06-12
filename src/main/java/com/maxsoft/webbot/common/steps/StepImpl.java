@@ -11,7 +11,9 @@ import com.thoughtworks.gauge.TableRow;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+
 import java.util.List;
+
 import static com.maxsoft.webbot.common.Base.TEST_DATA_FILE_PATH;
 import static com.maxsoft.webbot.util.datastore.DataStores.readFromDataStore;
 import static com.maxsoft.webbot.util.datastore.DataStores.saveToDataStore;
@@ -440,7 +442,7 @@ public class StepImpl {
         }
     }
 
-    // Use this method to validate the page title of the tab
+    // Use this method to validate the page title of the current tab
     @Step("Current Page Title Is <table>")
     public void isPageTitleEquals(Table table) {
         List<TableRow> rows = table.getTableRows();
@@ -463,5 +465,46 @@ public class StepImpl {
         }
     }
 
-    
+    // Use this method to close the current tab
+    @Step("Close The Current Tab")
+    public void closeTab() {
+        seleniumWrapperObj.closeTab();
+    }
+
+    // Use this method to switch to a tab using the tab index
+    @Step("Switch To The Tab By Tab Index <tabIndex>")
+    public void switchToTab(int tabIndex) {
+        seleniumWrapperObj.switchToTab(tabIndex);
+    }
+
+    // Use this method to switch to a tab using the tab title
+    @Step("Switch To The Tab By Tab Title <table>")
+    public void switchToTab(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isInputTextFromDataStore = row.getCell(columnNames.get(1));
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(2));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(3));
+            inputText = row.getCell(columnNames.get(4));
+
+            if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
+                seleniumWrapperObj.switchToTab(readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.FALSE));
+            } else {
+                seleniumWrapperObj.switchToTab(inputText);
+            }
+            clearVariableValues();
+
+        }
+    }
+
+    // Use this method to switch to the parent tab
+    @Step("Switch To The Parent Tab")
+    public void switchToParentTab() {
+        seleniumWrapperObj.switchToParentTab();
+    }
+
+
 }

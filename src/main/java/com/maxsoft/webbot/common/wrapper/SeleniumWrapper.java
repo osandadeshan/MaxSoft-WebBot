@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import com.google.common.base.Function;
 
+import static com.maxsoft.webbot.common.Constants.*;
+import static com.maxsoft.webbot.util.datastore.DataStores.readFromDataStore;
+import static com.maxsoft.webbot.util.datastore.DataStores.saveToDataStore;
+
 /**
  * Project Name : MaxSoft WebBot
  * Developer    : Osanda Deshan
@@ -806,7 +810,7 @@ public class SeleniumWrapper {
 
     public void openURLNewTab(String url) {
         ((JavascriptExecutor) driver).executeScript("window.open()");
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+        ArrayList <String> tabs = new ArrayList<String> (driver.getWindowHandles());
         driver.switchTo().window(tabs.get(tabs.size()-1));
         driver.navigate().to(url);
     }
@@ -817,6 +821,38 @@ public class SeleniumWrapper {
 
     public String getPageTitle() {
         return driver.getTitle();
+    }
+
+    public void closeTab() {
+        ((JavascriptExecutor)driver).executeScript("close();");
+        if (Integer.valueOf(readFromDataStore(SCENARIO, CURRENT_TAB_INDEX, Boolean.FALSE)) <= 1){
+            switchToParentTab();
+        }
+    }
+
+    public void switchToTab(int tabIndex) {
+        ArrayList <String> tabs = new ArrayList<String> (driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(tabIndex));
+        saveToDataStore(SCENARIO, CURRENT_TAB_INDEX, String.valueOf(tabIndex), Boolean.FALSE);
+    }
+
+    public void switchToTab(String tabTitle) {
+        ArrayList <String> tabs = new ArrayList<String> (driver.getWindowHandles());
+        ArrayList <String> tabList = new ArrayList<>();
+        for (int i = 0; i < tabs.size(); i++){
+            tabList.add(i, driver.switchTo().window(tabs.get(i)).getTitle());
+            driver.switchTo().window(tabs.get(0));
+            if(tabList.get(i).equals(tabTitle)){
+                driver.switchTo().window(tabs.get(i));
+                saveToDataStore(SCENARIO, CURRENT_TAB_INDEX, String.valueOf(i), Boolean.FALSE);
+                break;
+            }
+        }
+    }
+
+    public void switchToParentTab(){
+        ArrayList <String> tabs = new ArrayList<String> (driver.getWindowHandles());
+        driver.switchTo().window(tabs.get(0));
     }
 
 

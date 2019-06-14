@@ -11,7 +11,6 @@ import com.thoughtworks.gauge.TableRow;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.List;
 
 import static com.maxsoft.webbot.common.Base.TEST_DATA_FILE_PATH;

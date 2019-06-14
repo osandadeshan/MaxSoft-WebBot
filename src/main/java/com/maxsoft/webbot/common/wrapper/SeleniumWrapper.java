@@ -827,6 +827,8 @@ public class SeleniumWrapper {
         ((JavascriptExecutor)driver).executeScript("close();");
         if (Integer.valueOf(readFromDataStore(SCENARIO, CURRENT_TAB_INDEX, Boolean.FALSE)) <= 1){
             switchToParentTab();
+        } else {
+            switchToTab(Integer.valueOf(readFromDataStore(SCENARIO, CURRENT_TAB_INDEX, Boolean.FALSE)) - 1);
         }
     }
 

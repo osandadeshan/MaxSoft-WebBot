@@ -43,7 +43,7 @@ After this step executed, the following tabs will be on the browser,
 2. File upload page (Focused, Tab index = 1)
 3. Github page (Tab index = 2)
 
-* Current Page Title Is
+* Current Page Title Contains
    |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title            |
    |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|-----------------------------|
    |Validate current page title|no                                     |                                  |                                           |My Store                     |
@@ -63,11 +63,6 @@ After this step executed, the following tabs will be on the browser,
 After this step executed, the following tabs will be on the browser,
 1. Automation practice page (Tab index = 0)
 2. File upload page (Focused, Tab index = 1)
-
-//* Switch To The Tab By Tab Index "1"
-//After this step executed, the following tabs will be on the browser,
-//1. Automation practice page (Tab index = 0)
-//2. File upload page (Focused, Tab index = 1)
 
 * Current Page Title Is
    |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
@@ -141,7 +136,7 @@ After this step executed, the following tabs will be on the browser,
 1. Automation practice page (Focused, Tab index = 0)
 2. Github page (Tab index = 1)
 
-* Current Page Title Is
+* Current Page Title Contains
    |Step Name                        |Is Tab Title Retrieve From Data Store?|If Yes, Tab Title Data Store Type|If Yes, Tab Title Data Store Variable Name|If No, Tab Title                      |
    |---------------------------------|--------------------------------------|---------------------------------|------------------------------------------|--------------------------------------|
    |Switch to automationpractice.com |no                                    |                                 |                                          |My Store                              |
@@ -163,7 +158,7 @@ After this step executed, the following tabs will be on the browser,
 After this step executed, the following tabs will be on the browser,
 1. Automation practice page (Focused, Tab index = 0)
 
-* Current Page Title Is
+* Current Page Title Contains
    |Step Name                        |Is Tab Title Retrieve From Data Store?|If Yes, Tab Title Data Store Type|If Yes, Tab Title Data Store Variable Name|If No, Tab Title                      |
    |---------------------------------|--------------------------------------|---------------------------------|------------------------------------------|--------------------------------------|
    |Switch to automationpractice.com |no                                    |                                 |                                          |My Store                              |
@@ -176,14 +171,14 @@ _________________________
    |---------------------------|--------------------------------|---------------------------|------------------------------------|----------------------------------------|
    |Open automationpractice.com|no                              |                           |                                    |http://automationpractice.com/index.php |
 
-* Current Page Title Is
+* Current Page Title Contains
    |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
    |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
    |Validate current page title|no                                     |                                  |                                           |My Store                                |
 
 * Switch To The Parent Tab
 
-* Current Page Title Is
+* Current Page Title Contains
    |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
    |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
    |Validate current page title|no                                     |                                  |                                           |My Store                                |

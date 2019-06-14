@@ -464,6 +464,30 @@ public class StepImpl {
         }
     }
 
+    // Use this method to validate the page title of the current tab
+    @Step("Current Page Title Contains <table>")
+    public void isPageTitleContains(Table table) {
+        List<TableRow> rows = table.getTableRows();
+        List<String> columnNames = table.getColumnNames();
+
+        for (TableRow row : rows) {
+
+            isInputTextFromDataStore = row.getCell(columnNames.get(1));
+            valueRetrievingDataStoreType = row.getCell(columnNames.get(2));
+            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(3));
+            inputText = row.getCell(columnNames.get(4));
+
+            if (baseObj.isVariableContainsTrue(isInputTextFromDataStore)) {
+                Assert.assertTrue("Expected <" + readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE) + ">. But actual was <" +
+                        seleniumWrapperObj.getPageTitle() + ">", seleniumWrapperObj.getPageTitle().contains(readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE)));
+            } else {
+                Assert.assertTrue("Expected <" + inputText + ">. But actual was <" + seleniumWrapperObj.getPageTitle() + ">", seleniumWrapperObj.getPageTitle().contains(inputText));
+            }
+            clearVariableValues();
+
+        }
+    }
+
     // Use this method to close the current tab
     @Step("Close The Current Tab")
     public void closeTab() {

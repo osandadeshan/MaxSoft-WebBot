@@ -100,7 +100,7 @@ The main reason for developing this framework is to provide an easy way for Tech
 
 <br />
 
-## How to build the MaxSoft IntelliAPI JAR file
+## How to build the MaxSoft WebBot JAR file
 1) Get a clone of this project.
 2) Open the command prompt. 
 3) Navigate to the project directory. \

@@ -97,12 +97,12 @@ Tags: search
 
 ## Search T-Shirt by inputing text directly to the text box in data store
 
-* Save the values inside data stores
+* Save Values To Data Stores
    |Data Store Type|Data Store Variable Name|Value To Be Stored  |
    |---------------|------------------------|--------------------|
    |scenario       |searchDressTextBox      |search_query_top    |
 
-* Read the values from data stores
+* Read The Values From Data Stores
    |Data Store Type|Data Store Variable Name|
    |---------------|------------------------|
    |scenario       |searchDressTextBox      |
@@ -131,12 +131,12 @@ Tags: search
    |----------|-----------------|---------------|------------------------|
    |SearchData|tShirtDress      |scenario       |searchVal               |
 
-* Save the values inside data stores
+* Save Values To Data Stores
    |Data Store Type|Data Store Variable Name|Value To Be Stored  |
    |---------------|------------------------|--------------------|
    |scenario       |searchDressTextBox      |search_query_top    |
 
-* Read the values from data stores
+* Read The Values From Data Stores
    |Data Store Type|Data Store Variable Name|
    |---------------|------------------------|
    |scenario       |searchDressTextBox      |

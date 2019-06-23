@@ -1,0 +1,19 @@
+<pre>
+Project Name    : MaxSoft-WebBot
+Developer       : Osanda Deshan
+Version         : 1.0.0
+Date            : 6/23/2019
+Time            : 6:16 PM
+Description     : This is a concept file
+</pre>
+
+
+
+# Open eBay In Current Browser Tab
+
+* Open URL In Current Browser Tab
+   |Step Name                  |Is URL Retrieve From Data Store?|If Yes, URL Data Store Type|If Yes, URL Data Store Variable Name|If No, URL                              |
+   |---------------------------|--------------------------------|---------------------------|------------------------------------|----------------------------------------|
+   |Open ebay.com              |no                              |                           |                                    |https://www.ebay.com                    |
+
+* Verify eBay Page Title

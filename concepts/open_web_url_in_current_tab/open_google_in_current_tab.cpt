@@ -1,0 +1,24 @@
+<pre>
+Project Name    : MaxSoft-WebBot
+Developer       : Osanda Deshan
+Version         : 1.0.0
+Date            : 6/23/2019
+Time            : 6:16 PM
+Description     : This is a concept file
+</pre>
+
+
+
+# Open Google In Current Browser Tab
+
+* Save Environment Property Values To Data Stores
+   |Data Store Type|Data Store Variable Name|Property Name       |
+   |---------------|------------------------|--------------------|
+   |scenario       |googleEndpoint          |google_endpoint     |
+
+* Open URL In Current Browser Tab
+   |Step Name                  |Is URL Retrieve From Data Store?|If Yes, URL Data Store Type|If Yes, URL Data Store Variable Name|If No, URL                              |
+   |---------------------------|--------------------------------|---------------------------|------------------------------------|----------------------------------------|
+   |Open google.com            |yes                             |scenario                   |googleEndpoint                      |                                        |
+
+* Verify Google Page Title

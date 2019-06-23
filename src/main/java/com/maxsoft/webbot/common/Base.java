@@ -60,6 +60,10 @@ public class Base {
         return CURRENT_DIRECTORY + File.separator + TEST_DATA_FILE_PATH;
     }
 
+    public void savePropertyValueToDataStore(String dataStoreType, String dataStoreVariableName, String propertyName){
+        saveToDataStore(dataStoreType, dataStoreVariableName, System.getenv(propertyName), Boolean.TRUE);
+    }
+
     public void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000);

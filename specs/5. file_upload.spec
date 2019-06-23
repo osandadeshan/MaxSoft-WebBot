@@ -10,16 +10,19 @@ Description     : This is an executable specification file
 </pre>
 
 
+Tags: file_upload
+
+
     
 ## File Upload
 
-* Open URL In New Tab
+* Open URL In New Browser Tab
    |Step Name                 |Is URL Retrieve From Data Store?|If Yes, URL Data Store Type|If Yes, URL Data Store Variable Name|If No, URL                            |
    |--------------------------|--------------------------------|---------------------------|------------------------------------|--------------------------------------|
    |Open google.com           |no                              |                           |                                    |https://www.google.com/               |
    |Open file upload demo site|no                              |                           |                                    |http://demo.guru99.com/test/upload/   |
 
-* Switch To The Tab By Tab Title
+* Switch To The Browser Tab By Browser Tab Title
    |Step Name                 |Is Tab Title Retrieve From Data Store?|If Yes, Tab Title Data Store Type|If Yes, Tab Title Data Store Variable Name|If No, Tab Title                      |
    |--------------------------|--------------------------------------|---------------------------------|------------------------------------------|--------------------------------------|
    |Switch to google.com      |no                                    |                                 |                                          |Google                                |
@@ -29,9 +32,9 @@ Description     : This is an executable specification file
    |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
    |Validate current page title|no                                     |                                  |                                           |Google                                  |
 
-* Close The Current Tab
+* Close The Current Browser Tab
 
-* Switch To The Tab By Tab Title
+* Switch To The Browser Tab By Browser Tab Title
    |Step Name                       |Is Tab Title Retrieve From Data Store?|If Yes, Tab Title Data Store Type|If Yes, Tab Title Data Store Variable Name|If No, Tab Title                      |
    |--------------------------------|--------------------------------------|---------------------------------|------------------------------------------|--------------------------------------|
    |Switch to file upload demo site |no                                    |                                 |                                          |File Upload Demo                      |
@@ -61,12 +64,13 @@ Description     : This is an executable specification file
    |---------------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Upload success label should be visible |yes                                      |UploadPage        |lbl_upload_success  |                               |                              |                                       |
 
-* Close The Current Tab
+* Close The Current Browser Tab
 
 
 
-_________________________
-* Open URL In Current Tab
+_________________________________
+
+* Open URL In Current Browser Tab
    |Step Name                  |Is URL Retrieve From Data Store?|If Yes, URL Data Store Type|If Yes, URL Data Store Variable Name|If No, URL                              |
    |---------------------------|--------------------------------|---------------------------|------------------------------------|----------------------------------------|
    |Open automationpractice.com|no                              |                           |                                    |http://automationpractice.com/index.php |

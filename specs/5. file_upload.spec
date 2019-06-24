@@ -10,36 +10,23 @@ Description     : This is an executable specification file
 </pre>
 
 
+Tags: file_upload
+
+
     
 ## File Upload
 
-* Open URL In New Tab
+* Open URL In New Browser Tab
    |Step Name                 |Is URL Retrieve From Data Store?|If Yes, URL Data Store Type|If Yes, URL Data Store Variable Name|If No, URL                            |
    |--------------------------|--------------------------------|---------------------------|------------------------------------|--------------------------------------|
    |Open google.com           |no                              |                           |                                    |https://www.google.com/               |
    |Open file upload demo site|no                              |                           |                                    |http://demo.guru99.com/test/upload/   |
 
-* Switch To The Tab By Tab Title
-   |Step Name                 |Is Tab Title Retrieve From Data Store?|If Yes, Tab Title Data Store Type|If Yes, Tab Title Data Store Variable Name|If No, Tab Title                      |
-   |--------------------------|--------------------------------------|---------------------------------|------------------------------------------|--------------------------------------|
-   |Switch to google.com      |no                                    |                                 |                                          |Google                                |
+* Switch To The Google Tab And Verify Page Title
 
-* Current Page Title Is
-   |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
-   |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
-   |Validate current page title|no                                     |                                  |                                           |Google                                  |
+* Close The Current Browser Tab
 
-* Close The Current Tab
-
-* Switch To The Tab By Tab Title
-   |Step Name                       |Is Tab Title Retrieve From Data Store?|If Yes, Tab Title Data Store Type|If Yes, Tab Title Data Store Variable Name|If No, Tab Title                      |
-   |--------------------------------|--------------------------------------|---------------------------------|------------------------------------------|--------------------------------------|
-   |Switch to file upload demo site |no                                    |                                 |                                          |File Upload Demo                      |
-
-* Current Page Title Is
-   |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
-   |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
-   |Validate current page title|no                                     |                                  |                                           |File Upload Demo                        |
+* Switch To The File Upload Demo Tab And Verify Page Title
 
 * Input Text
    |Step Name         |Does Element Retrieve From Locators File?|If Yes, Sheet Name|If Yes, Element Name|If No, Element Locator Strategy|If No, Element Data Store Type|If No, Element Data Store Variable Name|Does Input Text Retrieve From Data Store?|If Yes, Data Store Type|If Yes, Data Store Variable Name|If No, Text                          |
@@ -61,17 +48,10 @@ Description     : This is an executable specification file
    |---------------------------------------|-----------------------------------------|------------------|--------------------|-------------------------------|------------------------------|---------------------------------------|
    |Upload success label should be visible |yes                                      |UploadPage        |lbl_upload_success  |                               |                              |                                       |
 
-* Close The Current Tab
+* Close The Current Browser Tab
 
 
 
-_________________________
-* Open URL In Current Tab
-   |Step Name                  |Is URL Retrieve From Data Store?|If Yes, URL Data Store Type|If Yes, URL Data Store Variable Name|If No, URL                              |
-   |---------------------------|--------------------------------|---------------------------|------------------------------------|----------------------------------------|
-   |Open automationpractice.com|no                              |                           |                                    |http://automationpractice.com/index.php |
+______________________________________
 
-* Current Page Title Is
-   |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
-   |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
-   |Validate current page title|no                                     |                                  |                                           |My Store                                |
+* Open My Store In Current Browser Tab

@@ -34,7 +34,7 @@ public class DriverFactory {
     private static final String IE = "ie";
     private static final String EDGE = "edge";
     private static final String SAFARI = "safari";
-    private static final String WINDOW_SIZE = "--window-size="+WINDOW_WIDTH+"x"+WINDOW_HEIGHT;
+    private static final String WINDOW_SIZE = "--window-size=" + WINDOW_WIDTH + "x" + WINDOW_HEIGHT;
 
     private static WebDriver driver;
 

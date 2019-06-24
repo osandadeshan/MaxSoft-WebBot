@@ -1,0 +1,19 @@
+<pre>
+Project Name    : MaxSoft-WebBot
+Developer       : Osanda Deshan
+Version         : 1.0.0
+Date            : 6/23/2019
+Time            : 6:23 PM
+Description     : This is a concept file
+</pre>
+
+
+
+# Switch To The GitHub Tab And Verify Page Title
+
+* Switch To The Browser Tab By Browser Tab Title
+   |Step Name                       |Is Tab Title Retrieve From Data Store?|If Yes, Tab Title Data Store Type|If Yes, Tab Title Data Store Variable Name|If No, Tab Title                                          |
+   |--------------------------------|--------------------------------------|---------------------------------|------------------------------------------|----------------------------------------------------------|
+   |Switch to github site           |no                                    |                                 |                                          |The world’s leading software development platform · GitHub|
+
+* Verify GitHub Page Title

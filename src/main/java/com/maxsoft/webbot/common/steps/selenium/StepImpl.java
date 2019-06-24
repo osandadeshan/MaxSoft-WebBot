@@ -1,21 +1,20 @@
-package com.maxsoft.webbot.common.steps;
+package com.maxsoft.webbot.common.steps.selenium;
 
 import com.maxsoft.webbot.common.Base;
 import com.maxsoft.webbot.common.wrapper.SeleniumWrapper;
 import com.maxsoft.webbot.util.ascii.StringToAsciiMapper;
 import com.maxsoft.webbot.util.driver.Driver;
-import com.maxsoft.webbot.util.reader.Excel;
+import com.maxsoft.webbot.util.driver.DriverFactory;
 import com.thoughtworks.gauge.Step;
 import com.thoughtworks.gauge.Table;
 import com.thoughtworks.gauge.TableRow;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import java.awt.*;
 import java.util.List;
 
-import static com.maxsoft.webbot.common.Base.TEST_DATA_FILE_PATH;
 import static com.maxsoft.webbot.util.datastore.DataStores.readFromDataStore;
-import static com.maxsoft.webbot.util.datastore.DataStores.saveToDataStore;
 
 /**
  * Project Name : MaxSoft WebBot
@@ -34,138 +33,35 @@ public class StepImpl {
     private Base baseObj = PageFactory.initElements(driver, Base.class);
     private SeleniumWrapper seleniumWrapperObj = PageFactory.initElements(driver, SeleniumWrapper.class);
 
-    private String locatorRetrievingDataStoreType = "";
-    private String locatorRetrievingDataStoreVariableName = "";
-    private String valueRetrievingDataStoreType = "";
-    private String valueRetrievingDataStoreVariableName = "";
-    private String valueSavingDataStoreType = "";
-    private String valueSavingDataStoreVariableName = "";
-    private String valueToBeStored = "";
-    private String sheetName = "";
-    private String cellContent = "";
-    private String isReplacementTextFromDataStore = "";
-    private String elementName = "";
-    private String placeholderText = "";
-    private String replacementText = "";
-    private String isElementFromLocatorsFile = "";
-    private String locatorStrategy = "";
-    private String isVisible = "";
-    private String isInputTextFromDataStore = "";
-    private String inputText = "";
-    private String refreshCount = "";
+    private String locatorRetrievingDataStoreType, locatorRetrievingDataStoreVariableName = "";
+    private String valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName = "";
+    private String sheetName, elementName = "";
+    private String isElementFromLocatorsFile, locatorStrategy, isVisible, isInputTextFromDataStore, inputText, refreshCount = "";
 
     // Clear variable values
     private void clearVariableValues() {
-        locatorRetrievingDataStoreType = "";
-        locatorRetrievingDataStoreVariableName = "";
-        valueRetrievingDataStoreType = "";
-        valueRetrievingDataStoreVariableName = "";
-        valueSavingDataStoreType = "";
-        valueSavingDataStoreVariableName = "";
-        valueToBeStored = "";
-        sheetName = "";
-        cellContent = "";
-        isReplacementTextFromDataStore = "";
-        elementName = "";
-        placeholderText = "";
-        replacementText = "";
-        isElementFromLocatorsFile = "";
-        locatorStrategy = "";
-        isVisible = "";
-        isInputTextFromDataStore = "";
-        inputText = "";
-        refreshCount = "";
+        locatorRetrievingDataStoreType = ""; locatorRetrievingDataStoreVariableName = "";
+        valueRetrievingDataStoreType = ""; valueRetrievingDataStoreVariableName = "";
+        sheetName = ""; elementName = "";
+        isElementFromLocatorsFile = ""; locatorStrategy = ""; isVisible = ""; isInputTextFromDataStore = ""; inputText = ""; refreshCount = "";
+    }
+
+    // Use this method to open a new browser window
+    @Step("Open New Browser Window")
+    public void openNewWindow() throws AWTException {
+        seleniumWrapperObj.openNewWindow();
+    }
+
+    // Use this method to maximize the browser window
+    @Step("Maximize Browser Window")
+    public void maximizeBrowserWindow() {
+        Driver.maximizeDriver();
     }
 
     // Use this method to keep idling the application for a given time in seconds
     @Step("Sleep <seconds> Seconds")
     public void sleep(int seconds) {
         baseObj.sleep(seconds);
-    }
-
-    // Use this method to save strings in data store
-    @Step("Save the values inside data stores <table>")
-    public void saveValueToDataStore(Table table) {
-        List<TableRow> rows = table.getTableRows();
-        List<String> columnNames = table.getColumnNames();
-
-        for (TableRow row : rows) {
-
-            valueSavingDataStoreType = row.getCell(columnNames.get(0));
-            valueSavingDataStoreVariableName = row.getCell(columnNames.get(1));
-            valueToBeStored = row.getCell(columnNames.get(2));
-
-            saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName, valueToBeStored, Boolean.TRUE);
-            clearVariableValues();
-
-        }
-    }
-
-    // Use this method to read strings from data store
-    @Step("Read the values from data stores <table>")
-    public void readValueFromDataStore(Table table) {
-        List<TableRow> rows = table.getTableRows();
-        List<String> columnNames = table.getColumnNames();
-
-        for (TableRow row : rows) {
-
-            valueRetrievingDataStoreType = row.getCell(columnNames.get(0));
-            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(1));
-
-            readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE);
-            clearVariableValues();
-
-        }
-    }
-
-    // Use this method to save the test data from the test_data.xlsx file to data stores
-    @Step("Save Test Data From Excel To Data Stores <table>")
-    public void saveFromExcelToDataStores(Table table) {
-        List<TableRow> rows = table.getTableRows();
-        List<String> columnNames = table.getColumnNames();
-
-        for (TableRow row : rows) {
-
-            sheetName = row.getCell(columnNames.get(0));
-            cellContent = row.getCell(columnNames.get(1));
-            valueSavingDataStoreType = row.getCell(columnNames.get(2));
-            valueSavingDataStoreVariableName = row.getCell(columnNames.get(3));
-
-            saveToDataStore(valueSavingDataStoreType, valueSavingDataStoreVariableName,
-                    Excel.getCellContentInRightSideCell(TEST_DATA_FILE_PATH, sheetName, cellContent), Boolean.TRUE);
-            clearVariableValues();
-
-        }
-    }
-
-    // Use this method to replace the locator placeholder in locators.xlsx file and save the locator in a data store
-    @Step("Replace Element Locator Placeholder And Save To Data Store <table>")
-    public void replaceWebElementLocatorPlaceholderAndSaveToDataStore(Table table) {
-        List<TableRow> rows = table.getTableRows();
-        List<String> columnNames = table.getColumnNames();
-
-        for (TableRow row : rows) {
-
-            sheetName = row.getCell(columnNames.get(1));
-            elementName = row.getCell(columnNames.get(2));
-            placeholderText = row.getCell(columnNames.get(3));
-            isReplacementTextFromDataStore = row.getCell(columnNames.get(4)).toLowerCase();
-            valueRetrievingDataStoreType = row.getCell(columnNames.get(5));
-            valueRetrievingDataStoreVariableName = row.getCell(columnNames.get(6));
-            replacementText = row.getCell(columnNames.get(7));
-            valueSavingDataStoreType = row.getCell(columnNames.get(8));
-            valueSavingDataStoreVariableName = row.getCell(columnNames.get(9));
-
-            if (baseObj.isVariableContainsTrue(isReplacementTextFromDataStore)) {
-                baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(sheetName, elementName, placeholderText,
-                        readFromDataStore(valueRetrievingDataStoreType, valueRetrievingDataStoreVariableName, Boolean.TRUE), valueSavingDataStoreType, valueSavingDataStoreVariableName);
-            } else {
-                baseObj.replaceWebElementLocatorPlaceholderAndSaveToDataStore(sheetName, elementName, placeholderText,
-                        replacementText, valueSavingDataStoreType, valueSavingDataStoreVariableName);
-            }
-            clearVariableValues();
-
-        }
     }
 
     // Use this method to verify the element's visibility which is on the current view port
@@ -395,8 +291,8 @@ public class StepImpl {
         }
     }
 
-    // Use this method to open an url in a new tab
-    @Step("Open URL In New Tab <table>")
+    // Use this method to open an url in a new browser tab
+    @Step("Open URL In New Browser Tab <table>")
     public void OpenURLNewTab(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
@@ -418,8 +314,8 @@ public class StepImpl {
         }
     }
 
-    // Use this method to open an url in the current tab
-    @Step("Open URL In Current Tab <table>")
+    // Use this method to open an url in the current browser tab
+    @Step("Open URL In Current Browser Tab <table>")
     public void OpenURLInCurrentTab(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
@@ -488,20 +384,20 @@ public class StepImpl {
         }
     }
 
-    // Use this method to close the current tab
-    @Step("Close The Current Tab")
+    // Use this method to close the current browser tab
+    @Step("Close The Current Browser Tab")
     public void closeTab() {
         seleniumWrapperObj.closeTab();
     }
 
-    // Use this method to switch to a tab using the tab index
-    @Step("Switch To The Tab By Tab Index <tabIndex>")
+    // Use this method to switch to a browser tab using the browser tab index
+    @Step("Switch To The Browser Tab By Browser Tab Index <tabIndex>")
     public void switchToTab(int tabIndex) {
         seleniumWrapperObj.switchToTab(tabIndex);
     }
 
-    // Use this method to switch to a tab using the tab title
-    @Step("Switch To The Tab By Tab Title <table>")
+    // Use this method to switch to a browser tab using the browser tab title
+    @Step("Switch To The Browser Tab By Browser Tab Title <table>")
     public void switchToTab(Table table) {
         List<TableRow> rows = table.getTableRows();
         List<String> columnNames = table.getColumnNames();
@@ -523,10 +419,16 @@ public class StepImpl {
         }
     }
 
-    // Use this method to switch to the parent tab
-    @Step("Switch To The Parent Tab")
+    // Use this method to switch to the parent browser tab
+    @Step("Switch To The Parent Browser Tab")
     public void switchToParentTab() {
         seleniumWrapperObj.switchToParentTab();
+    }
+
+    // Use this method to switch to the parent browser tab
+    @Step("Close All Other Tabs And Switch To The Parent Browser Tab")
+    public void closeAllTabsAndSwitchedToMainTab() {
+        seleniumWrapperObj.closeAllTabsAndSwitchedToMainTab();
     }
 
 

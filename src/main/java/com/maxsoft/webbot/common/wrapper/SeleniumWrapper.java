@@ -1,13 +1,21 @@
 package com.maxsoft.webbot.common.wrapper;
 
 import com.maxsoft.webbot.util.driver.Driver;
+import com.maxsoft.webbot.util.driver.DriverFactory;
 import com.thoughtworks.gauge.Gauge;
 import org.junit.Assert;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import com.google.common.base.Function;
 
@@ -808,10 +816,15 @@ public class SeleniumWrapper {
         }
     }
 
-    public void openURLNewTab(String url) {
-        ((JavascriptExecutor) driver).executeScript("window.open()");
+    public void switchToLastTab() {
         ArrayList <String> tabs = new ArrayList<String> (driver.getWindowHandles());
         driver.switchTo().window(tabs.get(tabs.size()-1));
+        saveToDataStore(SCENARIO, CURRENT_TAB_INDEX, String.valueOf(tabs.size()-1), Boolean.FALSE);
+    }
+
+    public void openURLNewTab(String url) {
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+        switchToLastTab();
         driver.navigate().to(url);
     }
 
@@ -824,11 +837,17 @@ public class SeleniumWrapper {
     }
 
     public void closeTab() {
-        ((JavascriptExecutor)driver).executeScript("close();");
-        if (Integer.valueOf(readFromDataStore(SCENARIO, CURRENT_TAB_INDEX, Boolean.FALSE)) <= 1){
+//        ((JavascriptExecutor)driver).executeScript("close();");
+        driver.close();
+        try {
+            if (Integer.valueOf(readFromDataStore(SCENARIO, CURRENT_TAB_INDEX, Boolean.FALSE)) <= 1) {
+                switchToParentTab();
+            } else {
+                switchToTab(Integer.valueOf(readFromDataStore(SCENARIO, CURRENT_TAB_INDEX, Boolean.FALSE)) - 1);
+            }
+        }
+        catch (Exception ex) {
             switchToParentTab();
-        } else {
-            switchToTab(Integer.valueOf(readFromDataStore(SCENARIO, CURRENT_TAB_INDEX, Boolean.FALSE)) - 1);
         }
     }
 
@@ -855,6 +874,42 @@ public class SeleniumWrapper {
     public void switchToParentTab(){
         ArrayList <String> tabs = new ArrayList<String> (driver.getWindowHandles());
         driver.switchTo().window(tabs.get(0));
+    }
+
+    public void openNewWindow() throws AWTException {
+        Robot robot = new Robot();
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_N);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_N);
+        switchToLastTab();
+        for (String windowHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(windowHandle);
+        }
+    }
+
+    public void closeAllTabsAndSwitchedToMainTab() {
+        try {
+            Set<String> windows = driver.getWindowHandles();
+            Iterator<String> iter = windows.iterator();
+            String[] winNames=new String[windows.size()];
+            int i=0;
+            while (iter.hasNext()) {
+                winNames[i]=iter.next();
+                i++;
+            }
+
+            if(winNames.length > 1) {
+                for(i = winNames.length; i > 1; i--) {
+                    driver.switchTo().window(winNames[i - 1]);
+                    driver.close();
+                }
+            }
+            driver.switchTo().window(winNames[0]);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 

@@ -14,4 +14,4 @@ Description     : This is a concept file
 * Current Page Title Is
    |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                                         |
    |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------------------------|
-   |Validate current page title|no                                     |                                  |                                           |The world’s leading software development platform · GitHub|
+   |Validate github page title |no                                     |                                  |                                           |The world’s leading software development platform · GitHub|

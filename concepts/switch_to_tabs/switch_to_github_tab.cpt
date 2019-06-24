@@ -14,6 +14,6 @@ Description     : This is a concept file
 * Switch To The Browser Tab By Browser Tab Title
    |Step Name                       |Is Tab Title Retrieve From Data Store?|If Yes, Tab Title Data Store Type|If Yes, Tab Title Data Store Variable Name|If No, Tab Title                                          |
    |--------------------------------|--------------------------------------|---------------------------------|------------------------------------------|----------------------------------------------------------|
-   |Switch to file upload demo site |no                                    |                                 |                                          |The world’s leading software development platform · GitHub|
+   |Switch to github site           |no                                    |                                 |                                          |The world’s leading software development platform · GitHub|
 
 * Verify GitHub Page Title

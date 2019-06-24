@@ -12,6 +12,6 @@ Description     : This is a concept file
 # Verify File Upload Demo Page Title
 
 * Current Page Title Is
-   |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
-   |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
-   |Validate current page title|no                                     |                                  |                                           |File Upload Demo                        |
+   |Step Name                           |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
+   |------------------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
+   |Validate file upload demo page title|no                                     |                                  |                                           |File Upload Demo                        |

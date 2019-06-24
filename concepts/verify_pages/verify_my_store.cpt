@@ -12,6 +12,6 @@ Description     : This is a concept file
 # Verify My Store Page Title
 
 * Current Page Title Contains
-   |Step Name                  |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
-   |---------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
-   |Validate current page title|no                                     |                                  |                                           |My Store                                |
+   |Step Name                   |Is Page Title Retrieve From Data Store?|If Yes, Page Title Data Store Type|If Yes, Page Title Data Store Variable Name|If No, Page Title                       |
+   |----------------------------|---------------------------------------|----------------------------------|-------------------------------------------|----------------------------------------|
+   |Validate my store page title|no                                     |                                  |                                           |My Store                                |

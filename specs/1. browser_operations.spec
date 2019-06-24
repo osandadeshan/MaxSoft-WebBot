@@ -34,9 +34,7 @@ Tags: browser
 
 * Switch To The Parent Browser Tab And Verify Page Title
 
-* Switch To The Browser Tab By Browser Tab Index "1"
-
-* Verify Google Page Title
+* Switch To The Google Tab And Verify Page Title
 
 
 
@@ -69,15 +67,13 @@ After this step executed, the following windows and tabs will be on the browser,
 
 * Verify GitHub Page Title
 
-* Switch To The Browser Tab By Browser Tab Index "2"
+* Switch To The Google Tab And Verify Page Title
 After this step executed, the following windows and tabs will be on the browser,
 1. Automation practice page (Window No = 1, Tab/Window index = 0)
 2. Automation practice page (Window No = 2, Tab/Window index = 1)
 3. Google page (Focused, Window No = 2, Tab/Window index = 2)
 4. File upload page (Window No = 2, Tab/Window index = 3)
 5. Github page (Window No = 2, Tab/Window index = 4)
-
-* Verify Google Page Title
 
 * Switch To The File Upload Demo Tab And Verify Page Title
 After this step executed, the following windows and tabs will be on the browser,
